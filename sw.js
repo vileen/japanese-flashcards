@@ -1,15 +1,15 @@
-const CACHE_NAME = 'japanese-flashcards-v1.3';
+const CACHE_NAME = 'japanese-flashcards-v1.3.1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/css/main.css',
-  '/css/components.css',
-  '/js/app.js',
-  '/js/data.js',
-  '/js/storage.js',
-  '/js/progress.js',
-  '/js/practice.js',
-  '/manifest.json'
+  './',
+  './index.html',
+  './css/main.css',
+  './css/components.css',
+  './js/app.js',
+  './js/data.js',
+  './js/storage.js',
+  './js/progress.js',
+  './js/practice.js',
+  './manifest.json'
 ];
 
 // Install event - cache resources
