@@ -10,11 +10,13 @@ A Progressive Web App for learning Japanese writing systems - Hiragana, Katakana
   - **Katakana** - 109 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations)
   - **Kanji** - 160 essential characters across 14 categories
 - ✅ **Smart Character Selection** - Select characters across all systems, persistent highlighting
-- 🎯 **Dual Practice Modes**:
+- 🧠 **Spaced Repetition System (SRS)** - SM-2 algorithm for optimal learning
+- 🎯 **Three Practice Modes**:
+  - **Review Mode** - SRS-based smart reviews with 4-level quality assessment
   - **Multiple Choice** - Test with 3 options, bidirectional (character ⇄ romaji)
   - **Flashcard** - Tap to reveal, bidirectional testing, self-assessment
-- 📊 **Progress Tracking** - Success rates per character and system
-- 💾 **Offline Storage** - All progress saved locally with LocalStorage
+- 📊 **Progress Tracking** - Success rates, review statistics, and learning analytics
+- 💾 **Offline Storage** - All progress and SRS data saved locally with LocalStorage
 - 🎨 **Beautiful UI** - Modern, touch-optimized design with dark mode
 
 ## Installation
@@ -63,6 +65,17 @@ php -S localhost:8000
 - Sections show character counts and hide when empty
 
 ### 3. Practice Modes
+
+**Review Mode (Recommended):**
+- Uses spaced repetition algorithm (SM-2) for optimal retention
+- Only shows cards due for review
+- 4-level quality assessment:
+  - **Again** - Wrong, review in 10 minutes
+  - **Hard** - Difficult, review in 1 day
+  - **Good** - Correct, review in 3+ days
+  - **Easy** - Perfect, review in 7+ days
+- Automatically adjusts review intervals based on performance
+- Dashboard shows: Due Today, New Cards, Learning Cards
 
 **Multiple Choice Mode:**
 - Randomly shows either character or romaji
@@ -152,11 +165,13 @@ japanese-flashcards/
 - [x] ~~Expand kanji database~~ ✅ **DONE** (v1.2.0 - 160 kanji)
 - [x] ~~Category grouping for easier navigation~~ ✅ **DONE** (v1.3.0)
 - [x] ~~Dark mode~~ ✅ **DONE** (v1.3.0)
-- [ ] Spaced repetition algorithm
+- [x] ~~Spaced repetition algorithm~~ ✅ **DONE** (v1.6.0 - SM-2 SRS)
 - [ ] Export/import progress
 - [ ] Study streaks and achievements
 - [ ] Audio pronunciation
 - [ ] Stroke order diagrams
+- [ ] Advanced SRS statistics and charts
+- [ ] Custom review session sizes
 
 ## License
 

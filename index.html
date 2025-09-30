@@ -79,8 +79,28 @@
             </div>
         </div>
 
-        <button class="practice-btn primary-btn" id="start-practice">
-            Start Practice
+        <!-- SRS Statistics -->
+        <div class="srs-stats" id="srs-stats">
+            <div class="srs-stat-card">
+                <div class="srs-stat-value" id="srs-due">0</div>
+                <div class="srs-stat-label">Due Today</div>
+            </div>
+            <div class="srs-stat-card">
+                <div class="srs-stat-value" id="srs-new">0</div>
+                <div class="srs-stat-label">New</div>
+            </div>
+            <div class="srs-stat-card">
+                <div class="srs-stat-value" id="srs-learning">0</div>
+                <div class="srs-stat-label">Learning</div>
+            </div>
+        </div>
+
+        <button class="practice-btn primary-btn" id="start-review">
+            📚 Start Review
+        </button>
+        
+        <button class="practice-btn secondary-btn" id="start-practice">
+            🎯 Practice Mode
         </button>
     </div>
 
@@ -178,11 +198,55 @@
                     <div class="flashcard-answer" id="flashcard-answer">a</div>
                 </div>
                 <div class="tap-hint" id="tap-hint">Tap to reveal</div>
+                
+                <div class="flashcard-controls" id="flashcard-controls" style="display: none;">
+                    <button class="assess-btn wrong-btn" id="assess-wrong">Need Practice</button>
+                    <button class="assess-btn correct-btn" id="assess-correct">Got It!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SRS Review Screen -->
+    <div id="practice-review" class="screen">
+        <div class="practice-header">
+            <button class="back-btn" id="back-from-review">←</button>
+            <div class="practice-progress">
+                <span id="review-current">1</span>/<span id="review-total">10</span>
+            </div>
+            <div class="practice-score" id="review-score">0%</div>
+        </div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="review-card">
+                <div class="flashcard-front">
+                    <div class="flashcard-label">Character</div>
+                    <div class="flashcard-character" id="review-character">あ</div>
+                </div>
+                <div class="flashcard-back" id="review-back">
+                    <div class="flashcard-label">Romaji</div>
+                    <div class="flashcard-answer" id="review-answer">a</div>
+                </div>
+                <div class="tap-hint" id="review-hint">Tap to reveal</div>
             </div>
 
-            <div class="flashcard-controls" id="flashcard-controls" style="display: none;">
-                <button class="assess-btn wrong-btn" id="assess-wrong">Need Practice</button>
-                <button class="assess-btn correct-btn" id="assess-correct">Got It!</button>
+            <div class="review-controls" id="review-controls" style="display: none;">
+                <button class="quality-btn again-btn" id="quality-again">
+                    <span class="quality-time">10m</span>
+                    <span class="quality-label">Again</span>
+                </button>
+                <button class="quality-btn hard-btn" id="quality-hard">
+                    <span class="quality-time">1d</span>
+                    <span class="quality-label">Hard</span>
+                </button>
+                <button class="quality-btn good-btn" id="quality-good">
+                    <span class="quality-time">3d</span>
+                    <span class="quality-label">Good</span>
+                </button>
+                <button class="quality-btn easy-btn" id="quality-easy">
+                    <span class="quality-time">7d</span>
+                    <span class="quality-label">Easy</span>
+                </button>
             </div>
         </div>
     </div>
@@ -231,6 +295,7 @@
     <script src="js/data.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/progress.js"></script>
+    <script src="js/srs.js"></script>
     <script src="js/practice.js"></script>
     <script src="js/app.js"></script>
 </body>

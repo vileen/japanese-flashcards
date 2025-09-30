@@ -147,3 +147,81 @@ class FlashcardPractice extends PracticeSession {
         return this.next();
     }
 }
+
+// SRS Review Practice - Uses spaced repetition
+class ReviewPractice {
+    constructor(characters) {
+        // Don't shuffle - review in due order
+        this.characters = [...characters];
+        this.currentIndex = 0;
+        this.revealed = false;
+        this.showCharacter = null;
+        this.reviewed = 0; // Count of reviewed cards
+    }
+    
+    getCurrentCharacter() {
+        return this.characters[this.currentIndex];
+    }
+    
+    reveal() {
+        this.revealed = true;
+    }
+    
+    getCurrentCard() {
+        const character = this.getCurrentCharacter();
+        
+        // Randomly decide what to show on first view of this card
+        if (this.showCharacter === null) {
+            this.showCharacter = Math.random() < 0.5;
+        }
+        
+        return {
+            front: this.showCharacter ? character.character : character.romaji,
+            back: this.showCharacter ? character.romaji : character.character,
+            isCharacterFront: this.showCharacter,
+            meaning: character.meaning || null,
+            revealed: this.revealed
+        };
+    }
+    
+    hasNext() {
+        return this.currentIndex < this.characters.length - 1;
+    }
+    
+    getProgress() {
+        return {
+            current: this.currentIndex + 1,
+            total: this.characters.length,
+            reviewed: this.reviewed
+        };
+    }
+    
+    // Record quality assessment and move to next card
+    assessQuality(quality) {
+        const currentChar = this.getCurrentCharacter();
+        
+        // Update SRS data
+        window.SRS.calculateNextReview(currentChar.id, quality);
+        
+        // Mark as reviewed
+        this.reviewed++;
+        
+        // Move to next card
+        this.revealed = false;
+        this.showCharacter = null;
+        
+        if (this.hasNext()) {
+            this.currentIndex++;
+            return this.getCurrentCharacter();
+        }
+        return null;
+    }
+    
+    getStats() {
+        return {
+            total: this.characters.length,
+            reviewed: this.reviewed,
+            remaining: this.characters.length - this.reviewed
+        };
+    }
+}

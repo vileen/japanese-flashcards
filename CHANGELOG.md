@@ -1,5 +1,43 @@
 # Changelog
 
+## Version 1.6.0 - Spaced Repetition System (SRS)
+
+### Added
+- **Spaced Repetition Algorithm (SM-2)** - Smart review scheduling based on performance
+- **Review Mode** - Dedicated practice mode using spaced repetition
+- **Quality Assessments** - 4-button rating system (Again, Hard, Good, Easy)
+- **SRS Statistics** - Dashboard showing cards due today, new cards, and learning cards
+- **Intelligent Scheduling** - Characters automatically scheduled for review at optimal intervals
+- **Performance-Based Intervals** - Review intervals adjust based on how well you know each character
+  - Wrong answer → Review in 10 minutes
+  - Hard → Review in 1 day (current interval)
+  - Good → Review in 3+ days (interval × ease factor)
+  - Easy → Review in 7+ days (longer interval)
+
+### Features
+- **Smart Review Queue** - Only shows cards that are due for review
+- **Persistent SRS Data** - All spaced repetition data saved in localStorage
+- **Bidirectional Testing** - Review mode randomly shows character or romaji
+- **Progress Tracking** - Real-time statistics during review sessions
+- **Ease Factor Adjustment** - Difficulty automatically adjusts based on your performance
+- **Review Complete Screen** - Celebratory completion message with session stats
+
+### UI Improvements
+- New SRS stat cards on main menu (Due Today, New, Learning)
+- Color-coded quality buttons (Red=Again, Orange=Hard, Teal=Good, Green=Easy)
+- Two practice buttons: "📚 Start Review" (SRS) and "🎯 Practice Mode" (traditional)
+- Time estimates shown on quality buttons
+- Clean, modern review interface matching app aesthetic
+
+### Technical
+- New `srs.js` module with SM-2 algorithm implementation
+- `ReviewPractice` class for SRS-based practice sessions
+- Separate localStorage key for SRS data persistence
+- Updated service worker cache to v1.6.0
+- Integration with existing character selection system
+
+---
+
 ## Version 1.5.0 - Drag-to-Select
 
 ### Added

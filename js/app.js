@@ -12,6 +12,7 @@ const screens = {
     modeSelection: document.getElementById('mode-selection'),
     practiceMultiple: document.getElementById('practice-multiple'),
     practiceFlashcard: document.getElementById('practice-flashcard'),
+    practiceReview: document.getElementById('practice-review'),
     results: document.getElementById('results')
 };
 
@@ -24,6 +25,7 @@ function showScreen(screenName) {
 // Initialize app
 function initApp() {
     updateMainMenuStats();
+    updateSRSStats(); // Update SRS statistics
     setupEventListeners();
     initDarkMode();
     setupModal();
@@ -85,6 +87,26 @@ function setupEventListeners() {
         });
     });
     
+    // Start review button
+    document.getElementById('start-review').addEventListener('click', () => {
+        const allSelected = getAllSelectedCharacters();
+        const allSelectedIds = [...allSelected.hiragana, ...allSelected.katakana, ...allSelected.kanji];
+        
+        if (allSelectedIds.length === 0) {
+            showAlert('No Characters Selected', 'Please select at least one character to review!');
+            return;
+        }
+        
+        const dueChars = window.SRS.getDueCharacters(allSelectedIds);
+        
+        if (dueChars.length === 0) {
+            showAlert('No Reviews Due', 'Great job! You have no cards due for review right now. Come back later!');
+            return;
+        }
+        
+        startReview();
+    });
+    
     // Start practice button
     document.getElementById('start-practice').addEventListener('click', () => {
         const allSelected = getAllSelectedCharacters();
@@ -121,6 +143,13 @@ function setupEventListeners() {
     document.getElementById('back-from-flashcard').addEventListener('click', () => {
         showScreen('mainMenu');
         currentPractice = null;
+        updateMainMenuStats();
+    });
+    
+    document.getElementById('back-from-review').addEventListener('click', () => {
+        showScreen('mainMenu');
+        currentPractice = null;
+        updateSRSStats();
         updateMainMenuStats();
     });
     
@@ -595,13 +624,19 @@ function displayFlashcard() {
     flashcard.onclick = revealFlashcard;
 }
 
-function revealFlashcard() {
+function revealFlashcard(e) {
+    // Prevent if clicking on controls
+    if (e && e.target.closest('.flashcard-controls')) {
+        return;
+    }
+    
     currentPractice.reveal();
     
     const flashcard = document.getElementById('flashcard');
     flashcard.classList.add('revealed');
     flashcard.onclick = null;
     
+    document.getElementById('tap-hint').style.display = 'none';
     document.getElementById('flashcard-controls').style.display = 'flex';
     
     // Setup assessment buttons
@@ -629,6 +664,112 @@ function showResults() {
     document.getElementById('total-count').textContent = score.total;
     
     showScreen('results');
+    updateMainMenuStats();
+}
+
+// SRS Review Mode
+function updateSRSStats() {
+    const allSelected = getAllSelectedCharacters();
+    const allSelectedIds = [...allSelected.hiragana, ...allSelected.katakana, ...allSelected.kanji];
+    
+    if (allSelectedIds.length === 0) {
+        document.getElementById('srs-due').textContent = '0';
+        document.getElementById('srs-new').textContent = '0';
+        document.getElementById('srs-learning').textContent = '0';
+        return;
+    }
+    
+    const stats = window.SRS.getReviewStats(allSelectedIds);
+    document.getElementById('srs-due').textContent = stats.due;
+    document.getElementById('srs-new').textContent = stats.new;
+    document.getElementById('srs-learning').textContent = stats.learning;
+}
+
+function startReview() {
+    const allSelected = getAllSelectedCharacters();
+    const allSelectedIds = [...allSelected.hiragana, ...allSelected.katakana, ...allSelected.kanji];
+    const dueIds = window.SRS.getDueCharacters(allSelectedIds);
+    
+    // Get character objects for due cards
+    const allChars = getSelectedCharacterObjects();
+    const dueChars = allChars.filter(char => dueIds.includes(char.id));
+    
+    currentPractice = new ReviewPractice(dueChars);
+    showScreen('practiceReview');
+    displayReviewCard();
+}
+
+function displayReviewCard() {
+    const card = currentPractice.getCurrentCard();
+    const progress = currentPractice.getProgress();
+    
+    // Update header
+    document.getElementById('review-current').textContent = progress.current;
+    document.getElementById('review-total').textContent = progress.total;
+    document.getElementById('review-score').textContent = 
+        Math.round((progress.reviewed / progress.total) * 100) + '%';
+    
+    // Update card
+    const characterEl = document.getElementById('review-character');
+    const answerEl = document.getElementById('review-answer');
+    
+    if (card.isCharacterFront) {
+        characterEl.textContent = card.front;
+        answerEl.textContent = card.back;
+        document.querySelector('#review-card .flashcard-front .flashcard-label').textContent = 'Character';
+        document.querySelector('#review-card .flashcard-back .flashcard-label').textContent = 'Romaji';
+    } else {
+        characterEl.textContent = card.front;
+        answerEl.textContent = card.back;
+        document.querySelector('#review-card .flashcard-front .flashcard-label').textContent = 'Romaji';
+        document.querySelector('#review-card .flashcard-back .flashcard-label').textContent = 'Character';
+    }
+    
+    // Reset card state
+    const flashcard = document.getElementById('review-card');
+    flashcard.classList.remove('revealed');
+    flashcard.onclick = revealReviewCard;
+    
+    document.getElementById('review-hint').style.display = 'block';
+    document.getElementById('review-controls').style.display = 'none';
+}
+
+function revealReviewCard() {
+    currentPractice.reveal();
+    
+    const flashcard = document.getElementById('review-card');
+    flashcard.classList.add('revealed');
+    flashcard.onclick = null;
+    
+    document.getElementById('review-hint').style.display = 'none';
+    document.getElementById('review-controls').style.display = 'flex';
+    document.getElementById('review-controls').style.justifyContent = 'center';
+    
+    // Setup quality buttons
+    document.getElementById('quality-again').onclick = () => assessReviewQuality(0);
+    document.getElementById('quality-hard').onclick = () => assessReviewQuality(1);
+    document.getElementById('quality-good').onclick = () => assessReviewQuality(2);
+    document.getElementById('quality-easy').onclick = () => assessReviewQuality(3);
+}
+
+function assessReviewQuality(buttonIndex) {
+    const quality = window.SRS.getQualityFromButton(buttonIndex);
+    const nextChar = currentPractice.assessQuality(quality);
+    
+    if (nextChar === null) {
+        // Review session complete
+        showReviewComplete();
+    } else {
+        displayReviewCard();
+    }
+}
+
+function showReviewComplete() {
+    const stats = currentPractice.getStats();
+    showAlert('Review Complete! 🎉', 
+        `Great job! You reviewed ${stats.reviewed} card${stats.reviewed !== 1 ? 's' : ''}. Keep up the good work!`);
+    showScreen('mainMenu');
+    updateSRSStats();
     updateMainMenuStats();
 }
 

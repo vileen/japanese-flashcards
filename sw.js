@@ -1,4 +1,4 @@
-const CACHE_NAME = 'japanese-flashcards-v1.5.4';
+const CACHE_NAME = 'japanese-flashcards-v1.7.1';
 const urlsToCache = [
   './',
   './index.html',
@@ -8,6 +8,7 @@ const urlsToCache = [
   './js/data.js',
   './js/storage.js',
   './js/progress.js',
+  './js/srs.js',
   './js/practice.js',
   './manifest.json'
 ];
