@@ -492,9 +492,9 @@ function displayFlashcard() {
     document.getElementById('flashcard-score').textContent = 
         currentPractice.stats.getSuccessRate() + '%';
     
-    // Update card
-    document.getElementById('flashcard-character').textContent = card.character;
-    document.getElementById('flashcard-answer').textContent = card.romaji;
+    // Update card with front/back
+    document.getElementById('flashcard-character').textContent = card.front;
+    document.getElementById('flashcard-answer').textContent = card.back;
     
     // Reset card state
     const flashcard = document.getElementById('flashcard');

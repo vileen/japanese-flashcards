@@ -117,6 +117,7 @@ class FlashcardPractice extends PracticeSession {
     constructor(characters) {
         super(characters, 'flashcard');
         this.revealed = false;
+        this.showCharacter = null; // true = show char, false = show romaji
     }
     
     reveal() {
@@ -125,9 +126,16 @@ class FlashcardPractice extends PracticeSession {
     
     getCurrentCard() {
         const character = this.getCurrentCharacter();
+        
+        // Randomly decide what to show on first view of this card
+        if (this.showCharacter === null) {
+            this.showCharacter = Math.random() < 0.5;
+        }
+        
         return {
-            character: character.character,
-            romaji: character.romaji,
+            front: this.showCharacter ? character.character : character.romaji,
+            back: this.showCharacter ? character.romaji : character.character,
+            isCharacterFront: this.showCharacter,
             meaning: character.meaning || null,
             revealed: this.revealed
         };
@@ -135,6 +143,7 @@ class FlashcardPractice extends PracticeSession {
     
     nextCard() {
         this.revealed = false;
+        this.showCharacter = null; // Reset for next card
         return this.next();
     }
 }
