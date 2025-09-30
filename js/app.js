@@ -30,11 +30,37 @@ function initApp() {
     initDarkMode();
     setupModal();
     
-    // Register service worker
+    // Register service worker with update handling
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/sw.js')
-            .then(reg => console.log('Service Worker registered'))
+        navigator.serviceWorker.register('./sw.js')
+            .then(reg => {
+                console.log('Service Worker registered');
+                
+                // Check for updates every time the app loads
+                reg.update();
+                
+                // Listen for updates
+                reg.addEventListener('updatefound', () => {
+                    const newWorker = reg.installing;
+                    newWorker.addEventListener('statechange', () => {
+                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                            // New service worker available, reload to get updates
+                            console.log('New version available! Reloading...');
+                            window.location.reload();
+                        }
+                    });
+                });
+            })
             .catch(err => console.log('Service Worker registration failed', err));
+        
+        // Reload page when new service worker takes control
+        let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (!refreshing) {
+                refreshing = true;
+                window.location.reload();
+            }
+        });
     }
 }
 

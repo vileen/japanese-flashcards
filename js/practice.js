@@ -151,12 +151,21 @@ class FlashcardPractice extends PracticeSession {
 // SRS Review Practice - Uses spaced repetition
 class ReviewPractice {
     constructor(characters) {
-        // Don't shuffle - review in due order
-        this.characters = [...characters];
+        // Shuffle to prevent order-based memorization
+        this.characters = this.shuffleArray([...characters]);
         this.currentIndex = 0;
         this.revealed = false;
         this.showCharacter = null;
         this.reviewed = 0; // Count of reviewed cards
+    }
+    
+    shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
     }
     
     getCurrentCharacter() {

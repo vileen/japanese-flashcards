@@ -1,4 +1,4 @@
-const CACHE_NAME = 'japanese-flashcards-v1.7.1';
+const CACHE_NAME = 'japanese-flashcards-v1.7.3';
 const urlsToCache = [
   './',
   './index.html',
@@ -15,14 +15,18 @@ const urlsToCache = [
 
 // Install event - cache resources
 self.addEventListener('install', (event) => {
+  console.log('Service Worker installing...', CACHE_NAME);
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then((cache) => {
-        console.log('Opened cache');
+        console.log('Opened cache:', CACHE_NAME);
         return cache.addAll(urlsToCache);
       })
+      .then(() => {
+        console.log('All resources cached');
+        return self.skipWaiting(); // Force waiting service worker to become active
+      })
   );
-  self.skipWaiting();
 });
 
 // Fetch event - serve from cache, fallback to network
@@ -58,17 +62,22 @@ self.addEventListener('fetch', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
+  console.log('Service Worker activating...', CACHE_NAME);
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
+      console.log('Existing caches:', cacheNames);
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
+    }).then(() => {
+      console.log('Service Worker activated, claiming clients');
+      return self.clients.claim(); // Take control of all pages immediately
     })
   );
-  self.clients.claim();
 });
