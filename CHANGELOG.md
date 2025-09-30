@@ -9,6 +9,7 @@
 - **Overlay buttons** - "Need Practice" and "Got It!" buttons overlay the flashcard for faster interaction
 - **Custom alert modal** - Replaced native alerts with styled custom modal
 - **Glassmorphism effects** - Semi-transparent buttons with backdrop blur
+- **Responsive character grid** - Centered layout on desktop/tablet (600px max-width) while maintaining consistent grid
 
 ### UI Improvements
 - Main menu cards now use vertical stacking (Japanese name, English name, stats)
@@ -16,6 +17,8 @@
 - Reduced vertical space usage - more compact design for mobile
 - Stats displayed as small pill badges instead of full labels
 - Dark mode support for all new components
+- Consistent character layout across all screen sizes (5 per row for basic, 3 for combinations)
+- Character grid centered on larger screens for better readability
 
 ### Practice Experience
 - Flashcard overlay buttons positioned in center of card
@@ -24,9 +27,10 @@
 - Custom modal with proper title and single action button (no confusing Cancel)
 
 ### Technical
-- Updated service worker cache to v1.4.5
+- Updated service worker cache to v1.4.8
 - Improved CSS organization and responsiveness
 - Better touch targets for mobile devices
+- Simplified responsive design - same grid layout across all devices
 
 ---
 

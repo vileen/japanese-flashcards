@@ -136,6 +136,16 @@
     flex: 1;
 }
 
+/* Center container on larger screens */
+@media (min-width: 768px) {
+    .character-grid {
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 80px;
+    }
+}
+
 .character-item {
     aspect-ratio: 1;
     background: white;
@@ -193,6 +203,7 @@
     color: #7F8C8D;
     font-weight: 500;
 }
+
 
 .character-item.selected .character-romaji {
     color: var(--secondary-color);
