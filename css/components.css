@@ -121,8 +121,13 @@
 
 .character-row {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+}
+
+/* Combination characters: 3 per row */
+.character-row-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 /* Character Grid */
@@ -178,7 +183,7 @@
 }
 
 .character-char {
-    font-size: 2rem;
+    font-size: 2.2rem;
     font-weight: 500;
     margin-bottom: 4px;
 }
@@ -191,6 +196,15 @@
 
 .character-item.selected .character-romaji {
     color: var(--secondary-color);
+}
+
+/* Blank placeholder cards for alignment */
+.character-blank {
+    opacity: 0;
+    pointer-events: none;
+    box-shadow: none;
+    border: none;
+    background: transparent;
 }
 
 /* Bottom Bar */
@@ -257,25 +271,29 @@
 .practice-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 30px;
     position: relative;
+    gap: 12px;
 }
 
 .practice-progress {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     color: var(--text-dark);
+    text-align: center;
+    flex: 1;
 }
 
 .practice-score {
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     color: var(--secondary-color);
     background: white;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 8px;
     box-shadow: var(--shadow);
+    white-space: nowrap;
 }
 
 /* Multiple Choice */

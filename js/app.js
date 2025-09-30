@@ -89,13 +89,15 @@ function setupEventListeners() {
     });
     
     document.getElementById('back-from-practice').addEventListener('click', () => {
-        showScreen('modeSelection');
+        showScreen('mainMenu');
         currentPractice = null;
+        updateMainMenuStats();
     });
     
     document.getElementById('back-from-flashcard').addEventListener('click', () => {
-        showScreen('modeSelection');
+        showScreen('mainMenu');
         currentPractice = null;
+        updateMainMenuStats();
     });
     
     // Toggle all selection
@@ -201,6 +203,48 @@ function loadCharacterSelection(system) {
         // Group characters by their sub-category (row) for organized display
         if (categoryName === 'Basic Characters') {
             const rowOrder = ['vowels', 'k-row', 's-row', 't-row', 'n-row', 'h-row', 'm-row', 'y-row', 'r-row', 'w-row', 'n'];
+            // Define which positions should be filled for each row (0-indexed, 5 positions total)
+            const rowPositions = {
+                'vowels': [0, 1, 2, 3, 4],
+                'k-row': [0, 1, 2, 3, 4],
+                's-row': [0, 1, 2, 3, 4],
+                't-row': [0, 1, 2, 3, 4],
+                'n-row': [0, 1, 2, 3, 4],
+                'h-row': [0, 1, 2, 3, 4],
+                'm-row': [0, 1, 2, 3, 4],
+                'y-row': [0, 2, 4], // ya, yu, yo (skip positions 1 and 3)
+                'r-row': [0, 1, 2, 3, 4],
+                'w-row': [0, 4], // wa, wo (skip positions 1, 2, 3)
+                'n': [4] // n (only last position)
+            };
+            
+            rowOrder.forEach(row => {
+                const rowChars = filteredChars.filter(c => c.category === row);
+                if (rowChars.length > 0) {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'character-row';
+                    
+                    const positions = rowPositions[row] || [0, 1, 2, 3, 4];
+                    let charIndex = 0;
+                    
+                    for (let i = 0; i < 5; i++) {
+                        if (positions.includes(i) && charIndex < rowChars.length) {
+                            const item = createCharacterItem(rowChars[charIndex], system);
+                            rowDiv.appendChild(item);
+                            charIndex++;
+                        } else {
+                            // Add blank placeholder
+                            const blank = document.createElement('div');
+                            blank.className = 'character-item character-blank';
+                            rowDiv.appendChild(blank);
+                        }
+                    }
+                    
+                    categoryGrid.appendChild(rowDiv);
+                }
+            });
+        } else if (categoryName === 'Dakuten (゛) & Handakuten (゜)') {
+            const rowOrder = ['g-row', 'z-row', 'd-row', 'b-row', 'p-row'];
             rowOrder.forEach(row => {
                 const rowChars = filteredChars.filter(c => c.category === row);
                 if (rowChars.length > 0) {
@@ -215,33 +259,34 @@ function loadCharacterSelection(system) {
                     categoryGrid.appendChild(rowDiv);
                 }
             });
-        } else if (categoryName === 'Dakuten (゛)') {
-            const rowOrder = ['g-row', 'z-row', 'd-row', 'b-row'];
-            rowOrder.forEach(row => {
-                const rowChars = filteredChars.filter(c => c.category === row);
-                if (rowChars.length > 0) {
-                    const rowDiv = document.createElement('div');
-                    rowDiv.className = 'character-row';
-                    
-                    rowChars.forEach(char => {
-                        const item = createCharacterItem(char, system);
-                        rowDiv.appendChild(item);
-                    });
-                    
-                    categoryGrid.appendChild(rowDiv);
-                }
-            });
+        } else if (categoryName === 'Combinations (拗音)') {
+            // Combinations: split into rows of 3 (ya, yu, yo pattern)
+            for (let i = 0; i < filteredChars.length; i += 3) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'character-row character-row-3';
+                
+                const rowChars = filteredChars.slice(i, i + 3);
+                rowChars.forEach(char => {
+                    const item = createCharacterItem(char, system);
+                    rowDiv.appendChild(item);
+                });
+                
+                categoryGrid.appendChild(rowDiv);
+            }
         } else {
-            // For other categories (Handakuten, Combinations), create a single row
-            const rowDiv = document.createElement('div');
-            rowDiv.className = 'character-row';
-            
-            filteredChars.forEach(char => {
-                const item = createCharacterItem(char, system);
-                rowDiv.appendChild(item);
-            });
-            
-            categoryGrid.appendChild(rowDiv);
+            // For kanji and other categories, split into rows of 5
+            for (let i = 0; i < filteredChars.length; i += 5) {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'character-row';
+                
+                const rowChars = filteredChars.slice(i, i + 5);
+                rowChars.forEach(char => {
+                    const item = createCharacterItem(char, system);
+                    rowDiv.appendChild(item);
+                });
+                
+                categoryGrid.appendChild(rowDiv);
+            }
         }
         
         section.appendChild(header);
