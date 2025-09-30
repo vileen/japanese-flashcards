@@ -427,18 +427,31 @@ function applyDragSelect(system, charId) {
     // Apply the drag mode consistently
     if (dragSelectMode === 'select' && !isSelected) {
         toggleCharacterSelection(system, charId);
-        loadCharacterSelection(system);
-        updateMainMenuStats();
+        // Update only the visual state of this character
+        const charElement = document.querySelector(`[data-char-id="${charId}"]`);
+        if (charElement) {
+            charElement.classList.add('selected');
+        }
+        updateSelectedCount(system);
     } else if (dragSelectMode === 'deselect' && isSelected) {
         toggleCharacterSelection(system, charId);
-        loadCharacterSelection(system);
-        updateMainMenuStats();
+        // Update only the visual state of this character
+        const charElement = document.querySelector(`[data-char-id="${charId}"]`);
+        if (charElement) {
+            charElement.classList.remove('selected');
+        }
+        updateSelectedCount(system);
     }
 }
 
 function endDragSelect() {
     isDragging = false;
     dragSelectMode = null;
+    // Update stats and potentially reload view if in filtered mode
+    updateMainMenuStats();
+    if (currentFilter === 'selected' || currentFilter === 'unlearned') {
+        loadCharacterSelection(currentSystem);
+    }
 }
 
 // Add global event listeners for drag end
