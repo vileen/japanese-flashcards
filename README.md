@@ -9,7 +9,7 @@ A Progressive Web App for learning Japanese writing systems - Hiragana, Katakana
   - **Hiragana** - 109 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations)
   - **Katakana** - 109 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations)
   - **Kanji** - 160 essential characters across 14 categories
-- ✅ **Smart Character Selection** - Select characters across all systems, persistent highlighting
+- ✅ **Smart Character Selection** - Drag-to-select multiple characters, visual grouping by category
 - 🧠 **Spaced Repetition System (SRS)** - SM-2 algorithm for optimal learning
 - 🎯 **Three Practice Modes**:
   - **Review Mode** - SRS-based smart reviews with 4-level quality assessment
@@ -58,24 +58,27 @@ php -S localhost:8000
 - **Visual category sections** - Characters organized with beautiful section headers
 - **Drag to select** - Click/tap and drag across characters to select multiple at once
 - **Smart selection** - Automatically selects or deselects based on first character touched
-- Selected characters are highlighted with a ✓ checkmark
+- Selected characters highlighted with colored border and subtle background
 - Selection persists across sessions and systems
 - Use "Select All" button per category or "All" button for everything
 - Filter by status: All, Selected, or Need Practice
 - Sections show character counts and hide when empty
+- Real-time SRS statistics update as you select characters
 
 ### 3. Practice Modes
 
 **Review Mode (Recommended):**
 - Uses spaced repetition algorithm (SM-2) for optimal retention
+- Shuffled order to prevent pattern memorization
 - Only shows cards due for review
-- 4-level quality assessment:
+- 4-level quality assessment (2×2 grid on mobile, 1×4 on desktop):
   - **Again** - Wrong, review in 10 minutes
   - **Hard** - Difficult, review in 1 day
   - **Good** - Correct, review in 3+ days
   - **Easy** - Perfect, review in 7+ days
 - Automatically adjusts review intervals based on performance
-- Dashboard shows: Due Today, New Cards, Learning Cards
+- Live SRS dashboard shows: Due Today, New Cards, Learning Cards
+- Bidirectional testing (character ⇄ romaji)
 
 **Multiple Choice Mode:**
 - Randomly shows either character or romaji
@@ -84,24 +87,30 @@ php -S localhost:8000
 - Tracks success rate in real-time
 
 **Flashcard Mode:**
-- Randomly shows character or romaji (bidirectional)
-- Tap to reveal the answer
-- Overlay buttons for quick self-assessment ("Got It!" or "Need Practice")
+- Bidirectional testing (character ⇄ romaji)
+- Tap card to reveal the answer
+- Semi-transparent overlay buttons for quick self-assessment
+- "Need Practice" / "Got It!" centered over the card
+- Minimal finger movement for faster reviews
 - Perfect for active recall training
 
 ### 4. Progress Tracking
-- Individual character success rates
-- System-wide statistics
-- Characters needing practice highlighted
-- All data persists offline
+- **SRS Dashboard** - Real-time stats for due cards, new cards, learning progress
+- Individual character success rates and review history
+- System-wide statistics (selected count, success rate)
+- Visual indicators for characters needing practice
+- Compact, modern UI with icon-based stats
+- All data persists offline in LocalStorage
 
 ## Technical Details
 
 - **Vanilla JavaScript** - No frameworks, fast and lightweight
-- **Progressive Web App** - Service Worker for offline functionality
-- **LocalStorage** - Persistent data storage
-- **Mobile-Optimized** - Touch gestures, responsive design
+- **Progressive Web App** - Service Worker with enhanced iOS update mechanism
+- **LocalStorage** - Persistent data storage for progress and SRS data
+- **Mobile-Optimized** - Touch gestures, drag-to-select, responsive design
 - **Offline-First** - Full functionality without internet
+- **Dark Mode** - Theme toggle with system preference detection
+- **Custom Modals** - Native-like alerts for better UX across platforms
 
 ## File Structure
 
