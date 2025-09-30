@@ -438,6 +438,7 @@ function toggleAllCharacters() {
     
     loadCharacterSelection(currentSystem);
     updateMainMenuStats();
+    updateSRSStats(); // Update SRS stats immediately
 }
 
 function selectCategoryGroup(categoryName, categoryCharacters) {
@@ -459,6 +460,7 @@ function selectCategoryGroup(categoryName, categoryCharacters) {
     
     loadCharacterSelection(currentSystem);
     updateMainMenuStats();
+    updateSRSStats(); // Update SRS stats immediately
 }
 
 // Drag selection functions
@@ -488,6 +490,7 @@ function applyDragSelect(system, charId) {
             charElement.classList.add('selected');
         }
         updateSelectedCount(system);
+        updateSRSStats(); // Update SRS stats immediately
     } else if (dragSelectMode === 'deselect' && isSelected) {
         toggleCharacterSelection(system, charId);
         // Update only the visual state of this character
@@ -496,6 +499,7 @@ function applyDragSelect(system, charId) {
             charElement.classList.remove('selected');
         }
         updateSelectedCount(system);
+        updateSRSStats(); // Update SRS stats immediately
     }
 }
 
