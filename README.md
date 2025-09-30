@@ -144,12 +144,15 @@ japanese-flashcards/
 
 ## Future Enhancements
 
-- [ ] Add dakuten and combination characters
-- [ ] Expand kanji database
+- [x] ~~Add dakuten and combination characters~~ ✅ **DONE** (v1.1.0)
+- [x] ~~Expand kanji database~~ ✅ **DONE** (v1.2.0 - 160 kanji)
+- [x] ~~Category grouping for easier navigation~~ ✅ **DONE** (v1.3.0)
+- [x] ~~Dark mode~~ ✅ **DONE** (v1.3.0)
 - [ ] Spaced repetition algorithm
-- [ ] Dark mode
 - [ ] Export/import progress
 - [ ] Study streaks and achievements
+- [ ] Audio pronunciation
+- [ ] Stroke order diagrams
 
 ## License
 

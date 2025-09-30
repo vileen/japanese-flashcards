@@ -23,6 +23,7 @@ function showScreen(screenName) {
 function initApp() {
     updateMainMenuStats();
     setupEventListeners();
+    initDarkMode();
     
     // Register service worker
     if ('serviceWorker' in navigator) {
@@ -30,6 +31,23 @@ function initApp() {
             .then(reg => console.log('Service Worker registered'))
             .catch(err => console.log('Service Worker registration failed', err));
     }
+}
+
+// Dark Mode
+function initDarkMode() {
+    // Check saved preference or system preference
+    const savedMode = localStorage.getItem('darkMode');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    if (savedMode === 'true' || (savedMode === null && prefersDark)) {
+        document.body.classList.add('dark-mode');
+    }
+}
+
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    const isDark = document.body.classList.contains('dark-mode');
+    localStorage.setItem('darkMode', isDark);
 }
 
 // Event Listeners Setup
@@ -106,6 +124,9 @@ function setupEventListeners() {
         showScreen('mainMenu');
         updateMainMenuStats();
     });
+    
+    // Dark mode toggle
+    document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
 }
 
 // Character Selection
@@ -173,14 +194,55 @@ function loadCharacterSelection(system) {
         header.appendChild(titleSpan);
         header.appendChild(infoDiv);
         
-        // Create grid for this category
+        // Create grid for this category with row organization
         const categoryGrid = document.createElement('div');
         categoryGrid.className = 'category-grid';
         
-        filteredChars.forEach(char => {
-            const item = createCharacterItem(char, system);
-            categoryGrid.appendChild(item);
-        });
+        // Group characters by their sub-category (row) for organized display
+        if (categoryName === 'Basic Characters') {
+            const rowOrder = ['vowels', 'k-row', 's-row', 't-row', 'n-row', 'h-row', 'm-row', 'y-row', 'r-row', 'w-row', 'n'];
+            rowOrder.forEach(row => {
+                const rowChars = filteredChars.filter(c => c.category === row);
+                if (rowChars.length > 0) {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'character-row';
+                    
+                    rowChars.forEach(char => {
+                        const item = createCharacterItem(char, system);
+                        rowDiv.appendChild(item);
+                    });
+                    
+                    categoryGrid.appendChild(rowDiv);
+                }
+            });
+        } else if (categoryName === 'Dakuten (゛)') {
+            const rowOrder = ['g-row', 'z-row', 'd-row', 'b-row'];
+            rowOrder.forEach(row => {
+                const rowChars = filteredChars.filter(c => c.category === row);
+                if (rowChars.length > 0) {
+                    const rowDiv = document.createElement('div');
+                    rowDiv.className = 'character-row';
+                    
+                    rowChars.forEach(char => {
+                        const item = createCharacterItem(char, system);
+                        rowDiv.appendChild(item);
+                    });
+                    
+                    categoryGrid.appendChild(rowDiv);
+                }
+            });
+        } else {
+            // For other categories (Handakuten, Combinations), create a single row
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'character-row';
+            
+            filteredChars.forEach(char => {
+                const item = createCharacterItem(char, system);
+                rowDiv.appendChild(item);
+            });
+            
+            categoryGrid.appendChild(rowDiv);
+        }
         
         section.appendChild(header);
         section.appendChild(categoryGrid);

@@ -1,19 +1,21 @@
 /* Character Selection Screen */
 .select-all-btn {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
     background: var(--secondary-color);
     color: white;
     padding: 10px 16px;
     border-radius: 8px;
     font-size: 0.9rem;
     font-weight: 600;
+    margin-top: 12px;
+    width: 100%;
+    max-width: 200px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .select-all-btn:active {
-    transform: translateY(-50%) scale(0.95);
+    transform: scale(0.95);
     opacity: 0.9;
 }
 
@@ -111,10 +113,16 @@
 }
 
 .category-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.character-row {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     gap: 12px;
-    margin-bottom: 20px;
 }
 
 /* Character Grid */

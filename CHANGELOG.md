@@ -1,11 +1,17 @@
 # Changelog
 
-## Version 1.3.0 - Visual Category Grouping
+## Version 1.3.0 - Visual Category Grouping & Dark Mode
 
 ### Added
 - **Visual category sections** - Characters are now grouped with section headers
 - **Category headers** - Beautiful gradient headers showing category name and character count
 - **"Select All" buttons** - Each category header has a button to select/deselect all characters in that group
+- **Row-based organization** - Characters within each category are displayed in traditional kana chart rows
+  - Basic characters: vowels, k-row, s-row, t-row, etc. (each row on its own line)
+  - Dakuten characters: g-row, z-row, d-row, b-row (each row on its own line)
+  - Handakuten and Combinations: displayed as single groups
+- **Dark mode** - Toggle between light and dark themes with a moon/sun button (top right)
+- **Auto dark mode** - Respects system dark mode preference on first load
 - **Organized display** - All characters displayed in logical groups for easier navigation
 
 ### Category Groups
@@ -28,12 +34,15 @@
 - Works seamlessly with existing filters (All, Selected, Need Practice)
 
 ### User Experience
-- Scroll through organized sections
+- Scroll through organized sections with clear visual separation
+- Characters displayed in traditional kana chart rows (5 per row for basic/dakuten)
 - Easily see "Basic Characters" vs "Dakuten" vs "Combinations"
 - Click "Select All" on any category header to instantly select all characters in that group
+- "Select All" button positioned below filters for better workflow
 - Build custom practice sets by selecting multiple categories
 - Filter by "Selected" to see your selections organized by category
 - Clear visual hierarchy makes learning progression intuitive
+- Dark mode toggle stays in top-right corner for easy access
 
 ---
 
