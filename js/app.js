@@ -24,6 +24,7 @@ function initApp() {
     updateMainMenuStats();
     setupEventListeners();
     initDarkMode();
+    setupModal();
     
     // Register service worker
     if ('serviceWorker' in navigator) {
@@ -31,6 +32,27 @@ function initApp() {
             .then(reg => console.log('Service Worker registered'))
             .catch(err => console.log('Service Worker registration failed', err));
     }
+}
+
+// Custom Alert Modal
+function showAlert(title, message) {
+    const modal = document.getElementById('alert-modal');
+    document.getElementById('alert-title').textContent = title;
+    document.getElementById('alert-message').textContent = message;
+    modal.style.display = 'flex';
+}
+
+function hideAlert() {
+    document.getElementById('alert-modal').style.display = 'none';
+}
+
+function setupModal() {
+    document.getElementById('alert-ok').addEventListener('click', hideAlert);
+    document.getElementById('alert-modal').addEventListener('click', (e) => {
+        if (e.target.id === 'alert-modal') {
+            hideAlert();
+        }
+    });
 }
 
 // Dark Mode
@@ -67,7 +89,7 @@ function setupEventListeners() {
         const totalSelected = allSelected.hiragana.length + allSelected.katakana.length + allSelected.kanji.length;
         
         if (totalSelected === 0) {
-            alert('Please select at least one character to practice!');
+            showAlert('No Characters Selected', 'Please select at least one character to practice!');
             return;
         }
         
@@ -394,7 +416,7 @@ function startMultipleChoice() {
     const selectedChars = getSelectedCharacterObjects();
     
     if (selectedChars.length === 0) {
-        alert('Please select at least one character!');
+        showAlert('No Characters Selected', 'Please select at least one character to practice!');
         return;
     }
     
@@ -473,10 +495,10 @@ function startFlashcard() {
     const selectedChars = getSelectedCharacterObjects();
     
     if (selectedChars.length === 0) {
-        alert('Please select at least one character!');
+        showAlert('No Characters Selected', 'Please select at least one character to practice!');
         return;
     }
-    
+
     currentPractice = new FlashcardPractice(selectedChars);
     showScreen('practiceFlashcard');
     displayFlashcard();

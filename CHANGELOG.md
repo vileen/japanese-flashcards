@@ -1,5 +1,35 @@
 # Changelog
 
+## Version 1.4.0 - UI Redesign & Enhanced Practice
+
+### Added
+- **Redesigned main menu** - Compact horizontal cards with centered layout
+- **Icon-based stats** - Clean stat badges with icons (☑ for selected, ✓ for success rate)
+- **Bidirectional flashcards** - Flashcard mode now randomly shows either character→romaji or romaji→character
+- **Overlay buttons** - "Need Practice" and "Got It!" buttons overlay the flashcard for faster interaction
+- **Custom alert modal** - Replaced native alerts with styled custom modal
+- **Glassmorphism effects** - Semi-transparent buttons with backdrop blur
+
+### UI Improvements
+- Main menu cards now use vertical stacking (Japanese name, English name, stats)
+- All content centered for cleaner look
+- Reduced vertical space usage - more compact design for mobile
+- Stats displayed as small pill badges instead of full labels
+- Dark mode support for all new components
+
+### Practice Experience
+- Flashcard overlay buttons positioned in center of card
+- Reduced finger movement - buttons appear exactly where you tap to reveal
+- Both practice modes now test both directions (character↔romaji)
+- Custom modal with proper title and single action button (no confusing Cancel)
+
+### Technical
+- Updated service worker cache to v1.4.5
+- Improved CSS organization and responsiveness
+- Better touch targets for mobile devices
+
+---
+
 ## Version 1.3.0 - Visual Category Grouping & Dark Mode
 
 ### Added

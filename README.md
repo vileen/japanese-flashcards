@@ -5,14 +5,17 @@ A Progressive Web App for learning Japanese writing systems - Hiragana, Katakana
 ## Features
 
 - 📱 **Mobile-First PWA** - Install on iPhone home screen, works offline
-- 🎌 **Three Writing Systems** - Hiragana (46 chars), Katakana (46 chars), Kanji (50 basic chars)
+- 🎌 **Three Writing Systems**:
+  - **Hiragana** - 109 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations)
+  - **Katakana** - 109 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations)
+  - **Kanji** - 160 essential characters across 14 categories
 - ✅ **Smart Character Selection** - Select characters across all systems, persistent highlighting
 - 🎯 **Dual Practice Modes**:
   - **Multiple Choice** - Test with 3 options, bidirectional (character ⇄ romaji)
-  - **Flashcard** - Tap to reveal, self-assessment
+  - **Flashcard** - Tap to reveal, bidirectional testing, self-assessment
 - 📊 **Progress Tracking** - Success rates per character and system
 - 💾 **Offline Storage** - All progress saved locally with LocalStorage
-- 🎨 **Beautiful UI** - Modern, touch-optimized design
+- 🎨 **Beautiful UI** - Modern, touch-optimized design with dark mode
 
 ## Installation
 
@@ -67,9 +70,9 @@ php -S localhost:8000
 - Tracks success rate in real-time
 
 **Flashcard Mode:**
-- Shows character on front
-- Tap to reveal romaji
-- Self-assess with "Got It!" or "Need Practice" buttons
+- Randomly shows character or romaji (bidirectional)
+- Tap to reveal the answer
+- Overlay buttons for quick self-assessment ("Got It!" or "Need Practice")
 - Perfect for active recall training
 
 ### 4. Progress Tracking
