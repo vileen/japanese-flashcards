@@ -175,22 +175,6 @@
     box-shadow: 0 4px 12px rgba(78, 205, 196, 0.3);
 }
 
-.character-item.selected::after {
-    content: '✓';
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    width: 20px;
-    height: 20px;
-    background: var(--secondary-color);
-    color: white;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.75rem;
-    font-weight: bold;
-}
 
 .character-item.need-practice {
     background: linear-gradient(135deg, #FFF5F5 0%, #FFFFFF 100%);
