@@ -1,0 +1,22 @@
+{
+  "name": "japanese-flashcards",
+  "version": "1.0.0",
+  "description": "Progressive Web App for learning Japanese writing systems",
+  "main": "index.html",
+  "scripts": {
+    "start": "python3 -m http.server 8000 || python -m http.server 8000 || npx http-server -p 8000",
+    "dev": "npx http-server -p 8000 -o",
+    "icons": "node generate-icons.js"
+  },
+  "keywords": [
+    "japanese",
+    "hiragana",
+    "katakana",
+    "kanji",
+    "flashcards",
+    "pwa",
+    "learning"
+  ],
+  "author": "",
+  "license": "MIT"
+}

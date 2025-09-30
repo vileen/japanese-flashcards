@@ -1,0 +1,126 @@
+# Changelog
+
+## Version 1.3.0 - Visual Category Grouping
+
+### Added
+- **Visual category sections** - Characters are now grouped with section headers
+- **Category headers** - Beautiful gradient headers showing category name and character count
+- **"Select All" buttons** - Each category header has a button to select/deselect all characters in that group
+- **Organized display** - All characters displayed in logical groups for easier navigation
+
+### Category Groups
+**Hiragana/Katakana (4 groups):**
+- Basic Characters (46 chars) - All basic kana
+- Dakuten (゛) (25 chars) - G, Z, D, B rows
+- Handakuten (゜) (5 chars) - P row
+- Combinations (拗音) (33 chars) - All yōon characters
+
+**Kanji (14 groups):**
+- Numbers, Time, People, Body, Nature, Position
+- Places, Objects, Animals, Colors, Actions
+- Adjectives, Education, Size
+
+### Improvements
+- Much cleaner visual organization (no dropdown needed)
+- See all characters at once in organized sections
+- Each section shows character count
+- Sections automatically hide when empty (filtered views)
+- Works seamlessly with existing filters (All, Selected, Need Practice)
+
+### User Experience
+- Scroll through organized sections
+- Easily see "Basic Characters" vs "Dakuten" vs "Combinations"
+- Click "Select All" on any category header to instantly select all characters in that group
+- Build custom practice sets by selecting multiple categories
+- Filter by "Selected" to see your selections organized by category
+- Clear visual hierarchy makes learning progression intuitive
+
+---
+
+## Version 1.2.0 - Expanded Kanji Database
+
+### Added
+- **110 additional Kanji characters** (50 → 160 total)
+  - More numbers & counters: 百, 千, 万, 円
+  - Extended time words: 週, 分, 半, 朝, 夕, 夜, 前, 後, 毎, 曜
+  - Family members: 父, 母, 友
+  - More body parts: 足, 心, 体, 頭, 顔
+  - Expanded nature words: 花, 草, 石, 林, 森, 田, 米, 風, 雪, 雲
+  - Directions: 左, 右, 東, 西, 南, 北, 外, 内
+  - Places: 国, 町, 村, 市, 店, 家, 室, 駅, 道
+  - Animals: 犬, 猫, 鳥, 魚, 馬
+  - Colors: 白, 赤, 青, 黄, 黒
+  - 30+ new verbs: 入, 出, 立, 座, 休, 働, 歩, 走, 飛, 泳, 飲, 買, 売, etc.
+  - Adjectives: 新, 古, 高, 低, 長, 短, 多, 少, 良, 悪, 強, 弱, 正, 同, 違
+  - Education: 語, 教, 答, 問, 試
+
+### New Categories
+- `animals` - Common animals
+- `colors` - Basic colors
+- `adjectives` - Descriptive words
+- `places` - Locations and buildings
+
+### Total Character Count
+- **Hiragana**: 109 characters
+- **Katakana**: 109 characters
+- **Kanji**: 160 characters (+110 from v1.1.0)
+- **Grand Total**: 378 characters! 🎉
+
+---
+
+## Version 1.1.0 - Extended Character Sets
+
+### Added
+- **Hiragana Dakuten** (25 characters): が, ぎ, ぐ, げ, ご, ざ, じ, ず, ぜ, ぞ, だ, ぢ, づ, で, ど, ば, び, ぶ, べ, ぼ
+- **Hiragana Handakuten** (5 characters): ぱ, ぴ, ぷ, ぺ, ぽ
+- **Hiragana Combinations** (33 characters): きゃ/きゅ/きょ, しゃ/しゅ/しょ, ちゃ/ちゅ/ちょ, にゃ/にゅ/にょ, ひゃ/ひゅ/ひょ, みゃ/みゅ/みょ, りゃ/りゅ/りょ, ぎゃ/ぎゅ/ぎょ, じゃ/じゅ/じょ, びゃ/びゅ/びょ, ぴゃ/ぴゅ/ぴょ
+
+- **Katakana Dakuten** (25 characters): ガ, ギ, グ, ゲ, ゴ, ザ, ジ, ズ, ゼ, ゾ, ダ, ヂ, ヅ, デ, ド, バ, ビ, ブ, ベ, ボ
+- **Katakana Handakuten** (5 characters): パ, ピ, プ, ペ, ポ
+- **Katakana Combinations** (33 characters): キャ/キュ/キョ, シャ/シュ/ショ, チャ/チュ/チョ, ニャ/ニュ/ニョ, ヒャ/ヒュ/ヒョ, ミャ/ミュ/ミョ, リャ/リュ/リョ, ギャ/ギュ/ギョ, ジャ/ジュ/ジョ, ビャ/ビュ/ビョ, ピャ/ピュ/ピョ
+
+### Total Character Count
+- **Hiragana**: 46 → 109 characters (+63)
+- **Katakana**: 46 → 109 characters (+63)
+- **Kanji**: 50 characters (unchanged)
+- **Grand Total**: 268 characters
+
+### Categories Added
+- `g-row` - Dakuten G sounds (ga, gi, gu, ge, go)
+- `z-row` - Dakuten Z sounds (za, ji, zu, ze, zo)
+- `d-row` - Dakuten D sounds (da, dji, dzu, de, do)
+- `b-row` - Dakuten B sounds (ba, bi, bu, be, bo)
+- `p-row` - Handakuten P sounds (pa, pi, pu, pe, po)
+- `combinations` - Yōon combination characters (kya, sha, cha, etc.)
+
+### Notes
+- All dakuten, handakuten, and combination characters now available for practice
+- Character selection screen will show all variations
+- Grid layout automatically adjusts for larger character sets
+- All new characters support both practice modes (Multiple Choice & Flashcard)
+- Progress tracking works for all new characters
+
+---
+
+## Version 1.0.0 - Initial Release
+
+### Features
+- ✅ PWA with offline support
+- ✅ 3 Writing Systems (Hiragana, Katakana, Kanji)
+- ✅ Integrated character selection with persistent highlighting
+- ✅ Multiple Choice practice mode (bidirectional)
+- ✅ Flashcard practice mode with self-assessment
+- ✅ Progress tracking and success rates
+- ✅ Mobile-optimized for iPhone
+- ✅ Beautiful, modern UI
+
+### Character Sets
+- Hiragana: 46 basic characters
+- Katakana: 46 basic characters
+- Kanji: 50 essential characters
+
+### Technical
+- Vanilla JavaScript (no frameworks)
+- Service Worker for offline functionality
+- LocalStorage for data persistence
+- Mobile-first responsive design
