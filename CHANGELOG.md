@@ -1,5 +1,28 @@
 # Changelog
 
+## Version 1.5.0 - Drag-to-Select
+
+### Added
+- **Drag selection** - Click/tap and drag across characters to select/deselect multiple at once
+- **Smart selection mode** - Automatically detects whether to select or deselect based on first character
+- **Mobile touch support** - Full touch gesture support for drag selection on mobile devices
+
+### Improved
+- **Faster character selection** - Select entire rows or groups with one smooth gesture
+- **Better UX** - No need for additional buttons, intuitive drag behavior
+- **Cleaner UI** - Removed row select buttons in favor of drag selection
+
+### Removed
+- Row select buttons (✓) - Replaced by drag-to-select functionality
+
+### Technical
+- Updated service worker cache to v1.5.1
+- Added drag state management with `mousedown`, `mouseenter`, `touchstart`, `touchmove` events
+- Prevented text selection and touch callout during drag with CSS `user-select: none`
+- Global `mouseup` and `touchend` listeners for drag completion
+
+---
+
 ## Version 1.4.0 - UI Redesign & Enhanced Practice
 
 ### Added

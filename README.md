@@ -54,10 +54,11 @@ php -S localhost:8000
 ### 2. Character Selection
 - Tap any writing system card to enter selection mode
 - **Visual category sections** - Characters organized with beautiful section headers
-- Tap characters to add them to your practice pool
+- **Drag to select** - Click/tap and drag across characters to select multiple at once
+- **Smart selection** - Automatically selects or deselects based on first character touched
 - Selected characters are highlighted with a ✓ checkmark
 - Selection persists across sessions and systems
-- Use "All" button to select/deselect all
+- Use "Select All" button per category or "All" button for everything
 - Filter by status: All, Selected, or Need Practice
 - Sections show character counts and hide when empty
 
