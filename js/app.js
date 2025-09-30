@@ -2,6 +2,8 @@
 let currentSystem = null;
 let currentPractice = null;
 let currentFilter = 'all';
+let isDragging = false;
+let dragSelectMode = null; // 'select' or 'deselect'
 
 // DOM Elements
 const screens = {
@@ -265,8 +267,8 @@ function loadCharacterSelection(system) {
                     categoryGrid.appendChild(rowDiv);
                 }
             });
-        } else if (categoryName === 'Dakuten (゛) & Handakuten (゜)') {
-            const rowOrder = ['g-row', 'z-row', 'd-row', 'b-row', 'p-row'];
+        } else if (categoryName === 'Dakuten (゛)') {
+            const rowOrder = ['g-row', 'z-row', 'd-row', 'b-row'];
             rowOrder.forEach(row => {
                 const rowChars = filteredChars.filter(c => c.category === row);
                 if (rowChars.length > 0) {
@@ -281,27 +283,14 @@ function loadCharacterSelection(system) {
                     categoryGrid.appendChild(rowDiv);
                 }
             });
-        } else if (categoryName === 'Combinations (拗音)') {
-            // Combinations: split into rows of 3 (ya, yu, yo pattern)
-            for (let i = 0; i < filteredChars.length; i += 3) {
-                const rowDiv = document.createElement('div');
-                rowDiv.className = 'character-row character-row-3';
-                
-                const rowChars = filteredChars.slice(i, i + 3);
-                rowChars.forEach(char => {
-                    const item = createCharacterItem(char, system);
-                    rowDiv.appendChild(item);
-                });
-                
-                categoryGrid.appendChild(rowDiv);
-            }
         } else {
-            // For kanji and other categories, split into rows of 5
-            for (let i = 0; i < filteredChars.length; i += 5) {
+            // For other categories (Handakuten, Combinations, Kanji), split into rows
+            const itemsPerRow = categoryName.includes('Combinations') ? 3 : 5;
+            for (let i = 0; i < filteredChars.length; i += itemsPerRow) {
                 const rowDiv = document.createElement('div');
-                rowDiv.className = 'character-row';
+                rowDiv.className = categoryName.includes('Combinations') ? 'character-row character-row-3' : 'character-row';
                 
-                const rowChars = filteredChars.slice(i, i + 5);
+                const rowChars = filteredChars.slice(i, i + itemsPerRow);
                 rowChars.forEach(char => {
                     const item = createCharacterItem(char, system);
                     rowDiv.appendChild(item);
@@ -343,11 +332,33 @@ function createCharacterItem(char, system) {
     div.appendChild(charSpan);
     div.appendChild(romajiSpan);
     
-    div.addEventListener('click', () => {
-        toggleCharacterSelection(system, char.id);
-        div.classList.toggle('selected');
-        updateSelectedCount(system);
-        updateMainMenuStats();
+    // Mouse/Touch events for drag selection
+    div.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        startDragSelect(system, char.id);
+    });
+    
+    div.addEventListener('mouseenter', () => {
+        if (isDragging) {
+            applyDragSelect(system, char.id);
+        }
+    });
+    
+    div.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        startDragSelect(system, char.id);
+    });
+    
+    div.addEventListener('touchmove', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        const element = document.elementFromPoint(touch.clientX, touch.clientY);
+        if (element && element.classList.contains('character-item')) {
+            const charId = element.dataset.charId;
+            if (charId && isDragging) {
+                applyDragSelect(system, charId);
+            }
+        }
     });
     
     return div;
@@ -394,6 +405,45 @@ function selectCategoryGroup(categoryName, categoryCharacters) {
     loadCharacterSelection(currentSystem);
     updateMainMenuStats();
 }
+
+// Drag selection functions
+function startDragSelect(system, charId) {
+    isDragging = true;
+    const selected = getSelectedCharacters(system);
+    
+    // Determine mode: if character is selected, we're deselecting; otherwise selecting
+    dragSelectMode = selected.includes(charId) ? 'deselect' : 'select';
+    
+    // Apply to first character
+    applyDragSelect(system, charId);
+}
+
+function applyDragSelect(system, charId) {
+    if (!isDragging) return;
+    
+    const selected = getSelectedCharacters(system);
+    const isSelected = selected.includes(charId);
+    
+    // Apply the drag mode consistently
+    if (dragSelectMode === 'select' && !isSelected) {
+        toggleCharacterSelection(system, charId);
+        loadCharacterSelection(system);
+        updateMainMenuStats();
+    } else if (dragSelectMode === 'deselect' && isSelected) {
+        toggleCharacterSelection(system, charId);
+        loadCharacterSelection(system);
+        updateMainMenuStats();
+    }
+}
+
+function endDragSelect() {
+    isDragging = false;
+    dragSelectMode = null;
+}
+
+// Add global event listeners for drag end
+document.addEventListener('mouseup', endDragSelect);
+document.addEventListener('touchend', endDragSelect);
 
 
 // Practice Modes
