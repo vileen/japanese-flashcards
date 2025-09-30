@@ -445,8 +445,12 @@ function applyDragSelect(system, charId) {
 }
 
 function endDragSelect() {
+    // Only process if we were actually dragging
+    if (!isDragging) return;
+    
     isDragging = false;
     dragSelectMode = null;
+    
     // Update stats and potentially reload view if in filtered mode
     updateMainMenuStats();
     if (currentFilter === 'selected' || currentFilter === 'unlearned') {
