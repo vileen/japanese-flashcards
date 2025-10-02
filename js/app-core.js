@@ -1,214 +1,5 @@
-// Main app logic
-let currentSystem = null;
-let currentPractice = null;
-let currentFilter = 'all';
-let isDragging = false;
-let dragSelectMode = null; // 'select' or 'deselect'
-
-// DOM Elements
-const screens = {
-    mainMenu: document.getElementById('main-menu'),
-    characterSelection: document.getElementById('character-selection'),
-    modeSelection: document.getElementById('mode-selection'),
-    practiceMultiple: document.getElementById('practice-multiple'),
-    practiceFlashcard: document.getElementById('practice-flashcard'),
-    practiceReview: document.getElementById('practice-review'),
-    results: document.getElementById('results')
-};
-
-// Screen navigation
-function showScreen(screenName) {
-    Object.values(screens).forEach(screen => screen.classList.remove('active'));
-    screens[screenName].classList.add('active');
-}
-
-// Initialize app
-function initApp() {
-    updateMainMenuStats();
-    updateSRSStats(); // Update SRS statistics
-    setupEventListeners();
-    initDarkMode();
-    setupModal();
-    
-    // Register service worker with update handling
-    if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js')
-            .then(reg => {
-                console.log('Service Worker registered');
-                
-                // Check for updates every time the app loads
-                reg.update();
-                
-                // Listen for updates
-                reg.addEventListener('updatefound', () => {
-                    const newWorker = reg.installing;
-                    newWorker.addEventListener('statechange', () => {
-                        if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            // New service worker available, reload to get updates
-                            console.log('New version available! Reloading...');
-                            window.location.reload();
-                        }
-                    });
-                });
-            })
-            .catch(err => console.log('Service Worker registration failed', err));
-        
-        // Reload page when new service worker takes control
-        let refreshing = false;
-        navigator.serviceWorker.addEventListener('controllerchange', () => {
-            if (!refreshing) {
-                refreshing = true;
-                window.location.reload();
-            }
-        });
-    }
-}
-
-// Custom Alert Modal
-function showAlert(title, message) {
-    const modal = document.getElementById('alert-modal');
-    document.getElementById('alert-title').textContent = title;
-    document.getElementById('alert-message').textContent = message;
-    modal.style.display = 'flex';
-}
-
-function hideAlert() {
-    document.getElementById('alert-modal').style.display = 'none';
-}
-
-function setupModal() {
-    document.getElementById('alert-ok').addEventListener('click', hideAlert);
-    document.getElementById('alert-modal').addEventListener('click', (e) => {
-        if (e.target.id === 'alert-modal') {
-            hideAlert();
-        }
-    });
-}
-
-// Dark Mode
-function initDarkMode() {
-    // Check saved preference or system preference
-    const savedMode = localStorage.getItem('darkMode');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    
-    if (savedMode === 'true' || (savedMode === null && prefersDark)) {
-        document.body.classList.add('dark-mode');
-    }
-}
-
-function toggleDarkMode() {
-    document.body.classList.toggle('dark-mode');
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('darkMode', isDark);
-}
-
-// Event Listeners Setup
-function setupEventListeners() {
-    // Main menu - select writing system
-    document.querySelectorAll('.menu-card').forEach(card => {
-        card.addEventListener('click', () => {
-            currentSystem = card.dataset.system;
-            loadCharacterSelection(currentSystem);
-            showScreen('characterSelection');
-        });
-    });
-    
-    // Start review button
-    document.getElementById('start-review').addEventListener('click', () => {
-        const allSelected = getAllSelectedCharacters();
-        const allSelectedIds = [...allSelected.hiragana, ...allSelected.katakana, ...allSelected.kanji];
-        
-        if (allSelectedIds.length === 0) {
-            showAlert('No Characters Selected', 'Please select at least one character to review!');
-            return;
-        }
-        
-        const dueChars = window.SRS.getDueCharacters(allSelectedIds);
-        
-        if (dueChars.length === 0) {
-            showAlert('No Reviews Due', 'Great job! You have no cards due for review right now. Come back later!');
-            return;
-        }
-        
-        startReview();
-    });
-    
-    // Start practice button
-    document.getElementById('start-practice').addEventListener('click', () => {
-        const allSelected = getAllSelectedCharacters();
-        const totalSelected = allSelected.hiragana.length + allSelected.katakana.length + allSelected.kanji.length;
-        
-        if (totalSelected === 0) {
-            showAlert('No Characters Selected', 'Please select at least one character to practice!');
-            return;
-        }
-        
-        showScreen('modeSelection');
-    });
-    
-    // Back buttons
-    document.getElementById('back-to-menu').addEventListener('click', () => {
-        showScreen('mainMenu');
-        updateMainMenuStats();
-    });
-    
-    document.getElementById('back-from-mode').addEventListener('click', () => {
-        if (currentSystem) {
-            showScreen('characterSelection');
-        } else {
-            showScreen('mainMenu');
-        }
-    });
-    
-    document.getElementById('back-from-practice').addEventListener('click', () => {
-        showScreen('mainMenu');
-        currentPractice = null;
-        updateMainMenuStats();
-    });
-    
-    document.getElementById('back-from-flashcard').addEventListener('click', () => {
-        showScreen('mainMenu');
-        currentPractice = null;
-        updateMainMenuStats();
-    });
-    
-    document.getElementById('back-from-review').addEventListener('click', () => {
-        showScreen('mainMenu');
-        currentPractice = null;
-        updateSRSStats();
-        updateMainMenuStats();
-    });
-    
-    // Toggle all selection
-    document.getElementById('toggle-all').addEventListener('click', toggleAllCharacters);
-    
-    // Filter tabs
-    document.querySelectorAll('.filter-tab').forEach(tab => {
-        tab.addEventListener('click', () => {
-            document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-            tab.classList.add('active');
-            currentFilter = tab.dataset.filter;
-            loadCharacterSelection(currentSystem);
-        });
-    });
-    
-    // Practice mode selection
-    document.getElementById('multiple-choice-mode').addEventListener('click', startMultipleChoice);
-    document.getElementById('flashcard-mode').addEventListener('click', startFlashcard);
-    
-    // Results screen
-    document.getElementById('practice-again').addEventListener('click', () => {
-        showScreen('modeSelection');
-    });
-    
-    document.getElementById('back-to-main').addEventListener('click', () => {
-        showScreen('mainMenu');
-        updateMainMenuStats();
-    });
-    
-    // Dark mode toggle
-    document.getElementById('dark-mode-toggle').addEventListener('click', toggleDarkMode);
-}
+// Core App Logic - Character Selection and Practice
+// Handles character selection, drag selection, and character practice modes
 
 // Character Selection
 function loadCharacterSelection(system) {
@@ -521,7 +312,6 @@ function endDragSelect() {
 document.addEventListener('mouseup', endDragSelect);
 document.addEventListener('touchend', endDragSelect);
 
-
 // Practice Modes
 function getSelectedCharacterObjects() {
     const allSelected = getAllSelectedCharacters();
@@ -565,6 +355,7 @@ function displayMultipleChoiceQuestion() {
     const typeText = question.type === 'char-to-romaji' 
         ? 'Character → Romaji' 
         : 'Romaji → Character';
+    
     document.getElementById('question-type').textContent = typeText;
     document.getElementById('question-display').textContent = question.display;
     
@@ -801,11 +592,4 @@ function showReviewComplete() {
     showScreen('mainMenu');
     updateSRSStats();
     updateMainMenuStats();
-}
-
-// Initialize app when DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initApp);
-} else {
-    initApp();
 }

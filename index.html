@@ -23,7 +23,7 @@
     <div id="main-menu" class="screen active">
         <div class="header">
             <h1>日本語学習</h1>
-            <p class="subtitle">Japanese Writing Systems</p>
+            <p class="subtitle">Japanese Learning System</p>
         </div>
         
         <div class="menu-cards">
@@ -74,6 +74,23 @@
                     <div class="stat">
                         <span class="stat-label">✓</span>
                         <span class="stat-value" id="kanji-success">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card" data-system="vocabulary">
+                <div class="menu-card-main">
+                    <h2>語彙</h2>
+                    <p class="system-name">Vocabulary</p>
+                </div>
+                <div class="progress-info">
+                    <div class="stat">
+                        <span class="stat-label">☑</span>
+                        <span class="stat-value" id="vocabulary-selected">0</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-label">✓</span>
+                        <span class="stat-value" id="vocabulary-success">0%</span>
                     </div>
                 </div>
             </div>
@@ -133,6 +150,110 @@
         </div>
     </div>
 
+    <!-- Vocabulary Management Screen -->
+    <div id="vocabulary-management" class="screen">
+        <div class="header">
+            <button class="back-btn" id="back-from-vocabulary">←</button>
+            <h2>Vocabulary Management</h2>
+            <button class="add-btn" id="add-vocabulary-btn">+ Add</button>
+        </div>
+
+        <div class="vocabulary-controls">
+            <div class="search-bar">
+                <input type="text" id="vocabulary-search" placeholder="Search vocabulary..." />
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All</button>
+                <button class="filter-tab" data-filter="category">By Category</button>
+            </div>
+        </div>
+
+        <div class="vocabulary-list" id="vocabulary-list">
+            <!-- Vocabulary words will be dynamically loaded here -->
+        </div>
+
+        <div class="bottom-bar">
+            <div class="vocabulary-stats">
+                <span id="vocabulary-count">0 words</span>
+            </div>
+            <button class="practice-btn primary-btn" id="start-vocabulary-practice">
+                Practice All
+            </button>
+        </div>
+    </div>
+
+    <!-- Add/Edit Vocabulary Modal -->
+    <div class="modal-overlay" id="vocabulary-modal" style="display: none;">
+        <div class="modal-content vocabulary-form">
+            <div class="modal-header">
+                <h3 id="vocabulary-modal-title">Add Vocabulary</h3>
+                <button class="close-btn" id="close-vocabulary-modal">×</button>
+            </div>
+            
+            <form id="vocabulary-form">
+                <div class="form-group">
+                    <label for="vocab-english">English</label>
+                    <input type="text" id="vocab-english" required placeholder="Enter English word/phrase">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vocab-romaji">Romaji</label>
+                    <input type="text" id="vocab-romaji" required placeholder="Enter romaji pronunciation">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vocab-hiragana">Hiragana</label>
+                    <input type="text" id="vocab-hiragana" placeholder="ひらがな (auto-filled from romaji)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vocab-katakana">Katakana</label>
+                    <input type="text" id="vocab-katakana" placeholder="カタカナ (auto-filled from romaji)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vocab-kanji">Kanji</label>
+                    <input type="text" id="vocab-kanji" placeholder="漢字 (optional)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vocab-meaning">Meaning/Notes</label>
+                    <input type="text" id="vocab-meaning" placeholder="Additional context (optional)">
+                </div>
+                
+                <div class="form-group">
+                    <label for="vocab-category">Category</label>
+                    <select id="vocab-category">
+                        <option value="general">General</option>
+                        <option value="greetings">Greetings</option>
+                        <option value="family">Family</option>
+                        <option value="food">Food</option>
+                        <option value="animals">Animals</option>
+                        <option value="colors">Colors</option>
+                        <option value="numbers">Numbers</option>
+                        <option value="time">Time</option>
+                        <option value="weather">Weather</option>
+                        <option value="body">Body</option>
+                        <option value="clothing">Clothing</option>
+                        <option value="transportation">Transportation</option>
+                        <option value="school">School</option>
+                        <option value="work">Work</option>
+                        <option value="hobbies">Hobbies</option>
+                        <option value="emotions">Emotions</option>
+                        <option value="adjectives">Adjectives</option>
+                        <option value="verbs">Verbs</option>
+                        <option value="nouns">Nouns</option>
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="secondary-btn" id="cancel-vocabulary">Cancel</button>
+                    <button type="submit" class="primary-btn" id="save-vocabulary">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- Practice Mode Selection -->
     <div id="mode-selection" class="screen">
         <div class="header">
@@ -151,6 +272,12 @@
                 <div class="mode-icon">🎴</div>
                 <h3>Flashcard</h3>
                 <p>Reveal and self-assess your understanding</p>
+            </div>
+
+            <div class="mode-card" id="vocabulary-practice-mode">
+                <div class="mode-icon">📚</div>
+                <h3>Vocabulary Practice</h3>
+                <p>Practice vocabulary words with English ⇄ Japanese flashcards</p>
             </div>
         </div>
     </div>
@@ -253,6 +380,37 @@
         </div>
     </div>
 
+    <!-- Vocabulary Practice Screen -->
+    <div id="practice-vocabulary" class="screen">
+        <div class="practice-header">
+            <button class="back-btn" id="back-from-vocabulary-practice">←</button>
+            <div class="practice-progress">
+                <span id="vocabulary-practice-current">1</span>/<span id="vocabulary-practice-total">10</span>
+            </div>
+            <div class="practice-score" id="vocabulary-practice-score">0%</div>
+        </div>
+
+        <div class="flashcard-container">
+            <div class="flashcard" id="vocabulary-flashcard">
+                <div class="flashcard-front">
+                    <div class="flashcard-label" id="vocabulary-flashcard-front-label">English</div>
+                    <div class="flashcard-character" id="vocabulary-flashcard-front">hello</div>
+                </div>
+                <div class="flashcard-back" id="vocabulary-flashcard-back-section">
+                    <div class="flashcard-label" id="vocabulary-flashcard-back-label">Japanese</div>
+                    <div class="flashcard-answer" id="vocabulary-flashcard-back">こんにちは</div>
+                    <div class="flashcard-additional" id="vocabulary-flashcard-additional">konnichiwa</div>
+                </div>
+                <div class="tap-hint" id="vocabulary-tap-hint">Tap to reveal</div>
+                
+                <div class="flashcard-controls" id="vocabulary-flashcard-controls" style="display: none;">
+                    <button class="assess-btn wrong-btn" id="vocabulary-assess-wrong">Need Practice</button>
+                    <button class="assess-btn correct-btn" id="vocabulary-assess-correct">Got It!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Results Screen -->
     <div id="results" class="screen">
         <div class="header">
@@ -294,11 +452,30 @@
         </div>
     </div>
 
+    <!-- Custom Confirmation Modal -->
+    <div class="modal-overlay" id="confirm-modal" style="display: none;">
+        <div class="modal-content">
+            <h3 class="modal-title" id="confirm-title">Confirm</h3>
+            <p class="modal-message" id="confirm-message">Are you sure?</p>
+            <div class="modal-actions">
+                <button class="secondary-btn" id="confirm-cancel">Cancel</button>
+                <button class="primary-btn" id="confirm-ok">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wanakana library for romaji conversion -->
+    <script src="https://unpkg.com/wanakana"></script>
+    
     <script src="js/data.js"></script>
+    <script src="js/vocabulary.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/progress.js"></script>
     <script src="js/srs.js"></script>
     <script src="js/practice.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/vocabulary-ui.js"></script>
+    <script src="js/vocabulary-practice.js"></script>
+    <script src="js/app-core.js"></script>
+    <script src="js/navigation.js"></script>
 </body>
 </html>

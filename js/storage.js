@@ -2,7 +2,9 @@
 const STORAGE_KEYS = {
     SELECTED: 'selected_characters',
     PROGRESS: 'character_progress',
-    STATS: 'system_stats'
+    STATS: 'system_stats',
+    VOCABULARY: 'vocabulary_words',
+    VOCABULARY_SELECTED: 'selected_vocabulary'
 };
 
 // Initialize storage with default values
@@ -23,8 +25,17 @@ function initStorage() {
         localStorage.setItem(STORAGE_KEYS.STATS, JSON.stringify({
             hiragana: { attempts: 0, correct: 0 },
             katakana: { attempts: 0, correct: 0 },
-            kanji: { attempts: 0, correct: 0 }
+            kanji: { attempts: 0, correct: 0 },
+            vocabulary: { attempts: 0, correct: 0 }
         }));
+    }
+
+    if (!localStorage.getItem(STORAGE_KEYS.VOCABULARY)) {
+        localStorage.setItem(STORAGE_KEYS.VOCABULARY, JSON.stringify([]));
+    }
+
+    if (!localStorage.getItem(STORAGE_KEYS.VOCABULARY_SELECTED)) {
+        localStorage.setItem(STORAGE_KEYS.VOCABULARY_SELECTED, JSON.stringify([]));
     }
 }
 
@@ -120,11 +131,96 @@ function getSystemSuccessRate(system) {
     return Math.round((stats.correct / stats.attempts) * 100);
 }
 
+// Vocabulary storage functions
+function getStoredVocabulary() {
+    const vocabulary = localStorage.getItem(STORAGE_KEYS.VOCABULARY);
+    return vocabulary ? JSON.parse(vocabulary) : [];
+}
+
+function storeVocabulary(vocabularyArray) {
+    localStorage.setItem(STORAGE_KEYS.VOCABULARY, JSON.stringify(vocabularyArray));
+}
+
+function getSelectedVocabulary() {
+    const selected = localStorage.getItem(STORAGE_KEYS.VOCABULARY_SELECTED);
+    return selected ? JSON.parse(selected) : [];
+}
+
+function setSelectedVocabulary(vocabularyIds) {
+    localStorage.setItem(STORAGE_KEYS.VOCABULARY_SELECTED, JSON.stringify(vocabularyIds));
+}
+
+function toggleVocabularySelection(vocabularyId) {
+    const selected = getSelectedVocabulary();
+    const index = selected.indexOf(vocabularyId);
+    
+    if (index > -1) {
+        selected.splice(index, 1);
+    } else {
+        selected.push(vocabularyId);
+    }
+    
+    setSelectedVocabulary(selected);
+    return selected;
+}
+
+function isVocabularySelected(vocabularyId) {
+    const selected = getSelectedVocabulary();
+    return selected.includes(vocabularyId);
+}
+
+// Enhanced character/vocabulary progress tracking
+function needsPractice(itemId) {
+    const successRate = getCharacterSuccessRate(itemId);
+    const progress = getCharacterProgress(itemId);
+    
+    // Consider needs practice if:
+    // - Never practiced (0 attempts)
+    // - Success rate below 70%
+    // - Haven't practiced in over a week and success rate below 90%
+    if (progress.attempts === 0) return true;
+    if (successRate < 70) return true;
+    
+    if (progress.lastPracticed) {
+        const daysSinceLastPractice = (Date.now() - new Date(progress.lastPracticed).getTime()) / (1000 * 60 * 60 * 24);
+        if (daysSinceLastPractice > 7 && successRate < 90) return true;
+    }
+    
+    return false;
+}
+
+// Update main menu stats to include vocabulary
+function updateMainMenuStats() {
+    // Update character system stats
+    ['hiragana', 'katakana', 'kanji'].forEach(system => {
+        const selected = getSelectedCharacters(system);
+        const successRate = getSystemSuccessRate(system);
+        
+        const selectedEl = document.getElementById(`${system}-selected`);
+        const successEl = document.getElementById(`${system}-success`);
+        
+        if (selectedEl) selectedEl.textContent = selected.length;
+        if (successEl) successEl.textContent = successRate + '%';
+    });
+
+    // Update vocabulary stats
+    const selectedVocab = getSelectedVocabulary();
+    const vocabSuccessRate = getSystemSuccessRate('vocabulary');
+    
+    const vocabSelectedEl = document.getElementById('vocabulary-selected');
+    const vocabSuccessEl = document.getElementById('vocabulary-success');
+    
+    if (vocabSelectedEl) vocabSelectedEl.textContent = selectedVocab.length;
+    if (vocabSuccessEl) vocabSuccessEl.textContent = vocabSuccessRate + '%';
+}
+
 // Clear all data (for reset functionality)
 function clearAllData() {
     localStorage.removeItem(STORAGE_KEYS.SELECTED);
     localStorage.removeItem(STORAGE_KEYS.PROGRESS);
     localStorage.removeItem(STORAGE_KEYS.STATS);
+    localStorage.removeItem(STORAGE_KEYS.VOCABULARY);
+    localStorage.removeItem(STORAGE_KEYS.VOCABULARY_SELECTED);
     initStorage();
 }
 
