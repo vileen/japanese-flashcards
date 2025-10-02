@@ -6,9 +6,9 @@ A Progressive Web App for learning Japanese writing systems - Hiragana, Katakana
 
 - 📱 **Mobile-First PWA** - Install on iPhone home screen, works offline
 - 🎌 **Three Writing Systems**:
-  - **Hiragana** - 109 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations)
-  - **Katakana** - 109 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations)
-  - **Kanji** - 160 essential characters across 14 categories
+  - **Hiragana** - 120 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations + 11 numbers)
+  - **Katakana** - 120 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations + 11 numbers)
+  - **Kanji** - 172 essential characters across 14 categories (expanded numbers section)
 - ✅ **Smart Character Selection** - Drag-to-select multiple characters, visual grouping by category
 - 🧠 **Spaced Repetition System (SRS)** - SM-2 algorithm for optimal learning
 - 🎯 **Three Practice Modes**:
@@ -134,20 +134,22 @@ japanese-flashcards/
 
 ## Character Sets
 
-### Hiragana (計 133 characters)
+### Hiragana (計 120 characters)
 - **46 Basic characters** (あ-ん)
 - **25 Dakuten** (゛) - が, ざ, だ, ば rows
 - **5 Handakuten** (゜) - ぱ row
 - **33 Combination characters** (拗音) - きゃ, しゃ, ちゃ, etc.
+- **11 Numbers** (れい-じゅう) - 0-10 in hiragana
 
-### Katakana (計 133 characters)
+### Katakana (計 120 characters)
 - **46 Basic characters** (ア-ン)
 - **25 Dakuten** (゛) - ガ, ザ, ダ, バ rows
 - **5 Handakuten** (゜) - パ row
 - **33 Combination characters** (拗音) - キャ, シャ, チャ, etc.
+- **11 Numbers** (レイ-ジュウ) - 0-10 in katakana
 
-### Kanji (160 characters)
-- **Numbers & Counters** (一-十, 百, 千, 万, 円)
+### Kanji (172 characters)
+- **Numbers & Counters** (零-十, 百, 千, 万, 億, 円, 数, 回, 第, 半, 倍, 対)
 - **Time Words** (日, 月, 年, 時, 週, 分, 半, 朝, 夕, 夜, 前, 後, 毎, 曜)
 - **People & Family** (人, 男, 女, 子, 父, 母, 友, 名, 生, 先)
 - **Body Parts** (手, 目, 口, 耳, 足, 心, 体, 頭, 顔)

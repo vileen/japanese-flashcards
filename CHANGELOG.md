@@ -1,5 +1,40 @@
 # Changelog
 
+## Version 1.7.0 - Number Characters
+
+### Added
+- **Hiragana Numbers** (11 characters) - 0-10 written in hiragana
+  - れい (rei/0), いち (ichi/1), に (ni/2), さん (san/3), よん (yon/4), ご (go/5), ろく (roku/6), なな (nana/7), はち (hachi/8), きゅう (kyuu/9), じゅう (juu/10)
+- **Katakana Numbers** (11 characters) - 0-10 written in katakana
+  - レイ (rei/0), イチ (ichi/1), ニ (ni/2), サン (san/3), ヨン (yon/4), ゴ (go/5), ロク (roku/6), ナナ (nana/7), ハチ (hachi/8), キュウ (kyuu/9), ジュウ (juu/10)
+- **Expanded Kanji Numbers** (12 additional characters)
+  - 零 (rei/zero), 億 (oku/hundred million)
+  - Number-related kanji: 数 (suu/number), 回 (kai/times), 第 (dai/ordinal prefix), 半 (han/half), 倍 (bai/double), 対 (tsui/pair)
+
+### Features
+- **Numbers Category** - New dedicated section for number characters in hiragana and katakana selection screens
+- **Complete Number System** - Learn numbers across all three writing systems
+- **Integrated Practice** - Number characters work seamlessly with all existing practice modes (Multiple Choice, Flashcard, Review/SRS)
+- **Consistent Learning** - Same number pronunciations across hiragana, katakana, and kanji systems
+
+### UI Improvements
+- Numbers section appears as organized category in character selection
+- Visual grouping maintains consistency with existing category system
+- Character counts updated to reflect new additions
+
+### Updated Character Counts
+- **Hiragana**: 109 → 120 characters (+11 numbers)
+- **Katakana**: 109 → 120 characters (+11 numbers) 
+- **Kanji**: 160 → 172 characters (+12 expanded numbers)
+- **Grand Total**: 412 characters! 🎌
+
+### Technical
+- Enhanced `getCategoryGroups()` function to handle numbers category for kana systems
+- Maintained consistent data structure across all character types
+- Updated README.md with new character counts and number descriptions
+
+---
+
 ## Version 1.6.0 - Spaced Repetition System (SRS)
 
 ### Added

@@ -156,7 +156,20 @@ const HIRAGANA = [
     // Pya (handakuten combinations)
     { id: 'h_pya', character: 'ぴゃ', romaji: 'pya', category: 'combinations' },
     { id: 'h_pyu', character: 'ぴゅ', romaji: 'pyu', category: 'combinations' },
-    { id: 'h_pyo', character: 'ぴょ', romaji: 'pyo', category: 'combinations' }
+    { id: 'h_pyo', character: 'ぴょ', romaji: 'pyo', category: 'combinations' },
+    
+    // Numbers (0-9)
+    { id: 'h_0', character: 'れい', romaji: 'rei', category: 'numbers' },
+    { id: 'h_1', character: 'いち', romaji: 'ichi', category: 'numbers' },
+    { id: 'h_2', character: 'に', romaji: 'ni', category: 'numbers' },
+    { id: 'h_3', character: 'さん', romaji: 'san', category: 'numbers' },
+    { id: 'h_4', character: 'よん', romaji: 'yon', category: 'numbers' },
+    { id: 'h_5', character: 'ご', romaji: 'go', category: 'numbers' },
+    { id: 'h_6', character: 'ろく', romaji: 'roku', category: 'numbers' },
+    { id: 'h_7', character: 'なな', romaji: 'nana', category: 'numbers' },
+    { id: 'h_8', character: 'はち', romaji: 'hachi', category: 'numbers' },
+    { id: 'h_9', character: 'きゅう', romaji: 'kyuu', category: 'numbers' },
+    { id: 'h_10', character: 'じゅう', romaji: 'juu', category: 'numbers' }
 ];
 
 const KATAKANA = [
@@ -316,7 +329,20 @@ const KATAKANA = [
     // Pya (handakuten combinations)
     { id: 'k_pya', character: 'ピャ', romaji: 'pya', category: 'combinations' },
     { id: 'k_pyu', character: 'ピュ', romaji: 'pyu', category: 'combinations' },
-    { id: 'k_pyo', character: 'ピョ', romaji: 'pyo', category: 'combinations' }
+    { id: 'k_pyo', character: 'ピョ', romaji: 'pyo', category: 'combinations' },
+    
+    // Numbers (0-9)
+    { id: 'k_0', character: 'レイ', romaji: 'rei', category: 'numbers' },
+    { id: 'k_1', character: 'イチ', romaji: 'ichi', category: 'numbers' },
+    { id: 'k_2', character: 'ニ', romaji: 'ni', category: 'numbers' },
+    { id: 'k_3', character: 'サン', romaji: 'san', category: 'numbers' },
+    { id: 'k_4', character: 'ヨン', romaji: 'yon', category: 'numbers' },
+    { id: 'k_5', character: 'ゴ', romaji: 'go', category: 'numbers' },
+    { id: 'k_6', character: 'ロク', romaji: 'roku', category: 'numbers' },
+    { id: 'k_7', character: 'ナナ', romaji: 'nana', category: 'numbers' },
+    { id: 'k_8', character: 'ハチ', romaji: 'hachi', category: 'numbers' },
+    { id: 'k_9', character: 'キュウ', romaji: 'kyuu', category: 'numbers' },
+    { id: 'k_10', character: 'ジュウ', romaji: 'juu', category: 'numbers' }
 ];
 
 const KANJI = [
@@ -381,15 +407,22 @@ const KANJI = [
     { id: 'kj_eat', character: '食', romaji: 'shoku/ta', category: 'action', meaning: 'eat' },
     
     // More numbers & counters
+    { id: 'kj_0', character: '零', romaji: 'rei', category: 'numbers', meaning: 'zero' },
     { id: 'kj_100', character: '百', romaji: 'hyaku', category: 'numbers', meaning: 'hundred' },
     { id: 'kj_1000', character: '千', romaji: 'sen', category: 'numbers', meaning: 'thousand' },
     { id: 'kj_10000', character: '万', romaji: 'man', category: 'numbers', meaning: 'ten thousand' },
+    { id: 'kj_100000000', character: '億', romaji: 'oku', category: 'numbers', meaning: 'hundred million' },
     { id: 'kj_circle', character: '円', romaji: 'en', category: 'numbers', meaning: 'yen/circle' },
+    { id: 'kj_number', character: '数', romaji: 'suu/kazu', category: 'numbers', meaning: 'number/amount' },
+    { id: 'kj_count', character: '回', romaji: 'kai/mawa', category: 'numbers', meaning: 'times/count' },
+    { id: 'kj_first', character: '第', romaji: 'dai', category: 'numbers', meaning: 'ordinal prefix' },
+    { id: 'kj_half', character: '半', romaji: 'han', category: 'numbers', meaning: 'half' },
+    { id: 'kj_double', character: '倍', romaji: 'bai', category: 'numbers', meaning: 'double/times' },
+    { id: 'kj_pair', character: '対', romaji: 'tsui/tai', category: 'numbers', meaning: 'pair/versus' },
     
 // More time words
     { id: 'kj_week', character: '週', romaji: 'shuu', category: 'time', meaning: 'week' },
     { id: 'kj_minute', character: '分', romaji: 'fun/pun', category: 'time', meaning: 'minute' },
-    { id: 'kj_half', character: '半', romaji: 'han', category: 'time', meaning: 'half' },
     { id: 'kj_morning', character: '朝', romaji: 'chou/asa', category: 'time', meaning: 'morning' },
     { id: 'kj_evening', character: '夕', romaji: 'yuu', category: 'time', meaning: 'evening' },
     { id: 'kj_night', character: '夜', romaji: 'ya/yoru', category: 'time', meaning: 'night' },
@@ -541,13 +574,15 @@ function getCategoryGroups(system) {
             'Basic Characters': [],
             'Dakuten (゛)': [],
             'Handakuten (゜)': [],
-            'Combinations (拗音)': []
+            'Combinations (拗音)': [],
+            'Numbers': []
         };
         
         const basicRows = ['vowels', 'k-row', 's-row', 't-row', 'n-row', 'h-row', 'm-row', 'y-row', 'r-row', 'w-row', 'n'];
         const dakutenRows = ['g-row', 'z-row', 'd-row', 'b-row'];
         const handakutenRows = ['p-row'];
         const combinationRows = ['combinations'];
+        const numberRows = ['numbers'];
         
         characters.forEach(char => {
             if (basicRows.includes(char.category)) {
@@ -558,6 +593,8 @@ function getCategoryGroups(system) {
                 groups['Handakuten (゜)'].push(char);
             } else if (combinationRows.includes(char.category)) {
                 groups['Combinations (拗音)'].push(char);
+            } else if (numberRows.includes(char.category)) {
+                groups['Numbers'].push(char);
             }
         });
         
