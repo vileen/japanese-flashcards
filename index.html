@@ -155,7 +155,10 @@
         <div class="header">
             <button class="back-btn" id="back-from-vocabulary">←</button>
             <h2>Vocabulary Management</h2>
-            <button class="add-btn" id="add-vocabulary-btn">+ Add</button>
+            <div class="header-actions">
+                <div class="sync-status" id="sync-status">📱 Offline</div>
+                <button class="add-btn" id="add-vocabulary-btn">+ Add</button>
+            </div>
         </div>
 
         <div class="vocabulary-controls">
@@ -466,6 +469,9 @@
 
     <!-- Wanakana library for romaji conversion -->
     <script src="https://unpkg.com/wanakana"></script>
+    
+    <!-- Firebase SDK v9+ -->
+    <script type="module" src="js/firebase-modern.js"></script>
     
     <script src="js/data.js"></script>
     <script src="js/vocabulary.js"></script>

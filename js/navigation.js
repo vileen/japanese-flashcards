@@ -35,6 +35,11 @@ function initApp() {
     initDarkMode();
     setupModal();
     
+    // Initialize Firebase sync
+    if (typeof initFirebaseSync === 'function') {
+        initFirebaseSync();
+    }
+    
     // Register service worker with update handling
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js')

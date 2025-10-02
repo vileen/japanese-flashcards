@@ -1,22 +1,26 @@
 # Japanese Flashcards PWA 日本語学習
 
-A Progressive Web App for learning Japanese writing systems - Hiragana, Katakana, and Kanji.
+A Progressive Web App for learning Japanese writing systems and vocabulary - Hiragana, Katakana, Kanji, and custom vocabulary words.
 
 ## Features
 
 - 📱 **Mobile-First PWA** - Install on iPhone home screen, works offline
-- 🎌 **Three Writing Systems**:
+- 🎌 **Four Learning Systems**:
   - **Hiragana** - 120 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations + 11 numbers)
   - **Katakana** - 120 characters (46 basic + 25 dakuten + 5 handakuten + 33 combinations + 11 numbers)
   - **Kanji** - 172 essential characters across 14 categories (expanded numbers section)
+  - **Vocabulary** - Custom English ⇄ Japanese word pairs with automatic romaji conversion
 - ✅ **Smart Character Selection** - Drag-to-select multiple characters, visual grouping by category
 - 🧠 **Spaced Repetition System (SRS)** - SM-2 algorithm for optimal learning
-- 🎯 **Three Practice Modes**:
+- 🎯 **Four Practice Modes**:
   - **Review Mode** - SRS-based smart reviews with 4-level quality assessment
   - **Multiple Choice** - Test with 3 options, bidirectional (character ⇄ romaji)
   - **Flashcard** - Tap to reveal, bidirectional testing, self-assessment
+  - **Vocabulary Practice** - Dedicated English ⇄ Japanese flashcard mode
+- 🔄 **Real-Time Romaji Conversion** - Automatic hiragana/katakana generation using wanakana
+- 🔥 **Firebase Cloud Sync** - Cross-device vocabulary synchronization with offline-first architecture
 - 📊 **Progress Tracking** - Success rates, review statistics, and learning analytics
-- 💾 **Offline Storage** - All progress and SRS data saved locally with LocalStorage
+- 💾 **Offline-First Storage** - All data works offline, syncs when online
 - 🎨 **Beautiful UI** - Modern, touch-optimized design with dark mode
 
 ## Installation
@@ -94,41 +98,64 @@ php -S localhost:8000
 - Minimal finger movement for faster reviews
 - Perfect for active recall training
 
-### 4. Progress Tracking
+### 4. Vocabulary Management
+- **Add Custom Words** - Create English ⇄ Japanese word pairs
+- **Smart Romaji Conversion** - Type romaji, get hiragana/katakana automatically
+- **19 Categories** - Organize by greetings, animals, food, etc.
+- **Search & Filter** - Find words instantly by any field
+- **Edit/Delete** - Full management with custom confirmation dialogs
+- **Firebase Cloud Sync** - Access vocabulary from any device
+- **Offline-First** - Works without internet, syncs when online
+
+### 5. Vocabulary Practice
+- **Dedicated Practice Mode** - Separate from character practice
+- **English ⇄ Japanese** - Bidirectional flashcard testing
+- **Multiple Scripts** - Shows hiragana, katakana, kanji, and romaji
+- **Progress Tracking** - Integrated with SRS system
+- **Practice All Words** - No selection needed
+
+### 6. Progress Tracking
 - **SRS Dashboard** - Real-time stats for due cards, new cards, learning progress
-- Individual character success rates and review history
+- Individual character and vocabulary success rates
 - System-wide statistics (selected count, success rate)
-- Visual indicators for characters needing practice
-- Compact, modern UI with icon-based stats
-- All data persists offline in LocalStorage
+- Visual indicators for items needing practice
+- Sync status indicators for cloud connectivity
+- All data persists offline with Firebase backup
 
 ## Technical Details
 
-- **Vanilla JavaScript** - No frameworks, fast and lightweight
+- **Vanilla JavaScript** - No frameworks, fast and lightweight with modular architecture
 - **Progressive Web App** - Service Worker with enhanced iOS update mechanism
-- **LocalStorage** - Persistent data storage for progress and SRS data
+- **Firebase Integration** - Real-time cloud sync with Firestore and anonymous authentication
+- **Offline-First Architecture** - Full functionality without internet, syncs when online
+- **Wanakana Integration** - Professional romaji ⇄ hiragana/katakana conversion
 - **Mobile-Optimized** - Touch gestures, drag-to-select, responsive design
-- **Offline-First** - Full functionality without internet
 - **Dark Mode** - Theme toggle with system preference detection
-- **Custom Modals** - Native-like alerts for better UX across platforms
+- **Custom Modals** - Native-like alerts and confirmations for better UX
 
 ## File Structure
 
 ```
 japanese-flashcards/
-├── index.html          # Main HTML
-├── manifest.json       # PWA manifest
-├── sw.js              # Service worker
+├── index.html              # Main HTML
+├── manifest.json           # PWA manifest
+├── sw.js                  # Service worker
 ├── css/
-│   ├── main.css       # Core styles
-│   └── components.css # Component styles
+│   ├── main.css           # Core styles
+│   └── components.css     # Component styles
 ├── js/
-│   ├── app.js         # Main app logic
-│   ├── data.js        # Character data
-│   ├── storage.js     # LocalStorage utilities
-│   ├── progress.js    # Progress tracking
-│   └── practice.js    # Practice modes
-└── icons/             # PWA icons
+│   ├── navigation.js      # App initialization & navigation
+│   ├── app-core.js        # Character selection & practice
+│   ├── data.js            # Character data (hiragana, katakana, kanji)
+│   ├── vocabulary.js      # Vocabulary data management
+│   ├── vocabulary-ui.js   # Vocabulary management UI
+│   ├── vocabulary-practice.js # Vocabulary flashcard practice
+│   ├── firebase-modern.js # Firebase integration & sync
+│   ├── storage.js         # LocalStorage utilities
+│   ├── progress.js        # Progress tracking
+│   ├── srs.js            # Spaced repetition system
+│   └── practice.js        # Character practice modes
+└── icons/                 # PWA icons
 
 ```
 
@@ -163,6 +190,13 @@ japanese-flashcards/
 - **Adjectives** (大, 小, 新, 古, 高, 低, 長, 短, 多, 少, 良, 悪, 強, 弱, 正, 同, 違)
 - **Education** (学, 教, 語, 答, 問, 試)
 
+### Vocabulary (Unlimited)
+- **Custom word pairs** - English ⇄ Japanese with automatic script conversion
+- **19 categories** - Greetings, family, food, animals, colors, etc.
+- **Real-time romaji conversion** - Type romaji, get hiragana/katakana automatically
+- **Cross-device sync** - Add words on any device, access everywhere
+- **Offline-first** - Works without internet, syncs when online
+
 ## Browser Support
 
 - ✅ Safari (iOS 11.3+)
@@ -177,12 +211,16 @@ japanese-flashcards/
 - [x] ~~Category grouping for easier navigation~~ ✅ **DONE** (v1.3.0)
 - [x] ~~Dark mode~~ ✅ **DONE** (v1.3.0)
 - [x] ~~Spaced repetition algorithm~~ ✅ **DONE** (v1.6.0 - SM-2 SRS)
-- [ ] Export/import progress
+- [x] ~~Vocabulary flashcards with cloud sync~~ ✅ **DONE** (v2.0.0 - Full vocabulary system)
+- [x] ~~Romaji conversion system~~ ✅ **DONE** (v2.0.0 - Wanakana integration)
+- [x] ~~Firebase integration~~ ✅ **DONE** (v2.0.0 - Cross-device sync)
+- [ ] Preset vocabulary sets (JLPT levels, themed collections)
+- [ ] Export/import vocabulary data
 - [ ] Study streaks and achievements
-- [ ] Audio pronunciation
-- [ ] Stroke order diagrams
+- [ ] Audio pronunciation for vocabulary
+- [ ] Stroke order diagrams for kanji
 - [ ] Advanced SRS statistics and charts
-- [ ] Custom review session sizes
+- [ ] User accounts with email authentication
 
 ## License
 

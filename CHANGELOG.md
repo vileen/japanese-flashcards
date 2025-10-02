@@ -1,5 +1,63 @@
 # Changelog
 
+## Version 2.0.0 - Vocabulary System with Cloud Sync 🔥
+
+### 🎉 Major Features Added
+- **📚 Complete Vocabulary System** - Add, edit, delete custom English ⇄ Japanese word pairs
+- **🔄 Real-Time Romaji Conversion** - Automatic hiragana/katakana generation using wanakana library
+- **🔥 Firebase Cloud Sync** - Cross-device vocabulary synchronization with offline-first architecture
+- **🎴 Vocabulary Practice Mode** - Dedicated flashcard practice for vocabulary words
+- **🎨 Professional UI** - Custom modals, confirmation dialogs, and sync status indicators
+
+### 🔧 Technical Improvements
+- **🏗️ Modular Architecture** - Split large app.js into focused modules:
+  - `navigation.js` - App initialization & screen navigation
+  - `app-core.js` - Character selection & practice modes
+  - `vocabulary-ui.js` - Vocabulary management interface
+  - `vocabulary-practice.js` - Vocabulary flashcard practice
+  - `firebase-modern.js` - Firebase integration & sync
+- **⚡ Performance** - Smaller, more maintainable code files
+- **🛡️ Robust Error Handling** - Custom confirmation dialogs and graceful Firebase fallbacks
+
+### 📱 Vocabulary Features
+- **Smart Input Form** - Type romaji → auto-fills hiragana & katakana
+- **19 Categories** - Organize vocabulary by topic (greetings, animals, food, etc.)
+- **Search & Filter** - Find vocabulary by any field (English, romaji, Japanese)
+- **Category View** - Beautiful grouped display with gradient headers
+- **Edit/Delete** - Full CRUD operations with custom confirmation dialogs
+- **ESC Key Support** - Close modals with keyboard shortcut
+
+### 🌐 Firebase Integration
+- **Anonymous Authentication** - No user accounts needed
+- **Offline-First Sync** - Works offline, syncs when online
+- **Conflict Resolution** - Latest timestamp wins for data merging
+- **Real-Time Status** - Live sync indicators (🔄 Syncing, ✅ Synced, 📱 Offline, ❌ Error)
+- **Auto-Sync** - Changes upload automatically when online
+- **Cross-Device Access** - Add words on phone, practice on computer
+
+### 🎯 Practice Modes
+- **Vocabulary Practice** - Separate English ⇄ Japanese flashcard mode
+- **Bidirectional Testing** - Random front/back selection for comprehensive learning
+- **Progress Tracking** - Vocabulary statistics integrated with existing SRS system
+- **All Words Practice** - No selection needed, practice entire vocabulary
+
+### 🎨 UI/UX Enhancements
+- **Custom Modals** - Beautiful confirmation dialogs replacing browser alerts
+- **Improved Spacing** - Better visual hierarchy and card spacing
+- **Professional Headers** - Gradient category headers with word counts
+- **Responsive Design** - Optimized for mobile and desktop
+- **Clean Forms** - Streamlined vocabulary input with smart auto-conversion
+
+### 🔄 Breaking Changes
+- **Vocabulary separate from characters** - Independent practice modes
+- **No difficulty levels** - Simplified vocabulary structure
+- **Modular loading** - Multiple JS files instead of single app.js
+
+### 📊 Statistics
+- **Lines of Code**: Reduced from 1400+ lines in app.js to modular files (~200-400 lines each)
+- **New Features**: 4 major systems added (vocabulary, romaji conversion, Firebase sync, modular architecture)
+- **Files Added**: 5 new JavaScript modules for better organization
+
 ## Version 1.7.0 - Number Characters
 
 ### Added

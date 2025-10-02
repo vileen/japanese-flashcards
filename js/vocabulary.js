@@ -119,64 +119,6 @@ const VOCABULARY_CATEGORIES = [
     'nouns'
 ];
 
-
-// Sample vocabulary words to get started
-const SAMPLE_VOCABULARY = [
-    {
-        english: 'hello',
-        romaji: 'konnichiwa',
-        hiragana: 'こんにちは',
-        category: 'greetings'
-    },
-    {
-        english: 'goodbye',
-        romaji: 'sayonara',
-        hiragana: 'さようなら',
-        category: 'greetings'
-    },
-    {
-        english: 'thank you',
-        romaji: 'arigatou gozaimasu',
-        hiragana: 'ありがとうございます',
-        category: 'greetings'
-    },
-    {
-        english: 'cat',
-        romaji: 'neko',
-        hiragana: 'ねこ',
-        kanji: '猫',
-        category: 'animals'
-    },
-    {
-        english: 'dog',
-        romaji: 'inu',
-        hiragana: 'いぬ',
-        kanji: '犬',
-        category: 'animals'
-    },
-    {
-        english: 'water',
-        romaji: 'mizu',
-        hiragana: 'みず',
-        kanji: '水',
-        category: 'general'
-    },
-    {
-        english: 'book',
-        romaji: 'hon',
-        hiragana: 'ほん',
-        kanji: '本',
-        category: 'general'
-    },
-    {
-        english: 'house',
-        romaji: 'ie',
-        hiragana: 'いえ',
-        kanji: '家',
-        category: 'general'
-    }
-];
-
 // Vocabulary management functions
 class VocabularyManager {
     constructor() {
@@ -194,28 +136,18 @@ class VocabularyManager {
             this.vocabulary.set(word.id, word);
         });
 
-        // Add sample vocabulary if none exists
-        if (this.vocabulary.size === 0) {
-            this.addSampleVocabulary();
-        }
-    }
-
-    // Add sample vocabulary
-    addSampleVocabulary() {
-        SAMPLE_VOCABULARY.forEach(wordData => {
-            const word = new VocabularyWord({
-                ...wordData,
-                source: 'preset'
-            });
-            this.vocabulary.set(word.id, word);
-        });
-        this.saveVocabulary();
+        // No sample vocabulary - start empty for Firebase integration
     }
 
     // Save vocabulary to storage
-    saveVocabulary() {
+    saveVocabulary(skipFirebaseSync = false) {
         const vocabularyArray = Array.from(this.vocabulary.values()).map(word => word.toJSON());
         storeVocabulary(vocabularyArray);
+        
+        // Trigger Firebase sync event (unless this save came FROM Firebase)
+        if (!skipFirebaseSync) {
+            window.dispatchEvent(new CustomEvent('vocabulary-changed'));
+        }
     }
 
     // Add new word
