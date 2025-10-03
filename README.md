@@ -19,6 +19,7 @@ A Progressive Web App for learning Japanese writing systems and vocabulary - Hir
   - **Vocabulary Practice** - Dedicated English ⇄ Japanese flashcard mode
 - 🔄 **Real-Time Romaji Conversion** - Automatic hiragana/katakana generation using wanakana
 - 🔥 **Firebase Cloud Sync** - Cross-device vocabulary synchronization with offline-first architecture
+- 🔗 **Device Sharing** - Share vocabulary across devices with 8-character codes
 - 📊 **Progress Tracking** - Success rates, review statistics, and learning analytics
 - 💾 **Offline-First Storage** - All data works offline, syncs when online
 - 🎨 **Beautiful UI** - Modern, touch-optimized design with dark mode
@@ -105,6 +106,7 @@ php -S localhost:8000
 - **Search & Filter** - Find words instantly by any field
 - **Edit/Delete** - Full management with custom confirmation dialogs
 - **Firebase Cloud Sync** - Access vocabulary from any device
+- **Cross-Device Sharing** - Share vocabulary with 8-character codes
 - **Offline-First** - Works without internet, syncs when online
 
 ### 5. Vocabulary Practice
@@ -214,6 +216,7 @@ japanese-flashcards/
 - [x] ~~Vocabulary flashcards with cloud sync~~ ✅ **DONE** (v2.0.0 - Full vocabulary system)
 - [x] ~~Romaji conversion system~~ ✅ **DONE** (v2.0.0 - Wanakana integration)
 - [x] ~~Firebase integration~~ ✅ **DONE** (v2.0.0 - Cross-device sync)
+- [x] ~~Cross-device vocabulary sharing~~ ✅ **DONE** (v2.1.0 - Shareable device codes)
 - [ ] Preset vocabulary sets (JLPT levels, themed collections)
 - [ ] Export/import vocabulary data
 - [ ] Study streaks and achievements

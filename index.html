@@ -157,6 +157,7 @@
             <h2>Vocabulary Management</h2>
             <div class="header-actions">
                 <div class="sync-status" id="sync-status">📱 Offline</div>
+                <button class="share-btn" id="share-vocabulary-btn">🔗 Share</button>
                 <button class="add-btn" id="add-vocabulary-btn">+ Add</button>
             </div>
         </div>
@@ -471,6 +472,40 @@
         </div>
     </div>
 
+    <!-- Sharing Modal -->
+    <div class="modal-overlay" id="sharing-modal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Share Vocabulary Across Devices</h3>
+                <button class="close-btn" id="close-sharing-modal">×</button>
+            </div>
+            
+            <div class="sharing-content">
+                <div class="current-id-section">
+                    <h4>Your Device ID</h4>
+                    <div class="user-id-display">
+                        <span id="current-user-id">XXXXXXXX</span>
+                        <button class="copy-btn" id="copy-user-id">Copy</button>
+                    </div>
+                    <p class="help-text">Share this ID with your other devices to sync vocabulary</p>
+                </div>
+                
+                <div class="join-section">
+                    <h4>Join Another Device</h4>
+                    <div class="join-form">
+                        <input type="text" id="join-user-id" placeholder="Enter 8-character ID" maxlength="8">
+                        <button class="primary-btn" id="join-user-btn">Join</button>
+                    </div>
+                    <p class="help-text">Enter an ID from another device to access its vocabulary</p>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="secondary-btn" id="cancel-sharing">Close</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Wanakana library for romaji conversion -->
     <script src="https://unpkg.com/wanakana"></script>
     
@@ -483,6 +518,7 @@
     <script src="js/progress.js"></script>
     <script src="js/srs.js"></script>
     <script src="js/practice.js"></script>
+    <script src="js/shared-user.js"></script>
     <script src="js/vocabulary-ui.js"></script>
     <script src="js/vocabulary-practice.js"></script>
     <script src="js/app-core.js"></script>

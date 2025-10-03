@@ -1,5 +1,38 @@
 # Changelog
 
+## Version 2.1.0 - Cross-Device Vocabulary Sharing 🔗
+
+### 🎉 Major Features Added
+- **🔗 Shared User System** - Share vocabulary across devices with 8-character codes
+- **📱 Cross-Device Sync** - Access same vocabulary on phone, tablet, and computer
+- **🔄 Smart Copy System** - One-click copying of device IDs with visual feedback
+- **🛡️ Secure Sharing** - Firebase security rules for safe shared vocabulary access
+
+### 📱 Sharing Features
+- **Device ID Generation** - Automatic 8-character shareable codes (e.g., BM2PWGGT)
+- **Copy to Clipboard** - Modern clipboard API with fallback for older browsers
+- **Join Other Devices** - Enter another device's ID to access its vocabulary
+- **Visual Feedback** - Copy button shows "✓ Copied!" confirmation
+- **Automatic Sync** - Vocabulary updates instantly across all connected devices
+
+### 🎨 UI Improvements
+- **Share Button** - New 🔗 Share button in vocabulary management header
+- **Professional Modal** - Beautiful sharing interface with clear instructions
+- **Mobile Responsive** - Optimized layout for all screen sizes
+- **Monospace Display** - Device IDs shown in easy-to-read courier font
+
+### 🔧 Technical Improvements
+- **Firebase Rules Update** - Enhanced security rules for shared vocabulary collections
+- **Effective User ID System** - Smart routing between individual and shared vocabularies
+- **Error Handling** - Graceful fallbacks for copy operations
+- **Cross-Browser Support** - Works on all modern browsers and mobile devices
+
+### 🚀 How It Works
+1. **Device A**: Generates shareable ID → Saves vocabulary to `shared_ABC12345`
+2. **Device B**: Enters same ID → Accesses same vocabulary collection
+3. **Real-time sync**: Changes on any device appear on all connected devices
+4. **Secure access**: Firebase rules ensure only authenticated users can access shared data
+
 ## Version 2.0.1 - Bug Fixes & Polish 🐛
 
 ### 🔧 Bug Fixes

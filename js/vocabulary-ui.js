@@ -129,6 +129,13 @@ function setupVocabularyEventListeners() {
         addBtn.setAttribute('data-listener-added', 'true');
     }
     
+    // Share vocabulary button
+    const shareBtn = document.getElementById('share-vocabulary-btn');
+    if (shareBtn && !shareBtn.hasAttribute('data-listener-added')) {
+        shareBtn.addEventListener('click', () => showSharingModal());
+        shareBtn.setAttribute('data-listener-added', 'true');
+    }
+    
     // Search input
     const searchInput = document.getElementById('vocabulary-search');
     if (searchInput && !searchInput.hasAttribute('data-listener-added')) {
@@ -158,6 +165,11 @@ function setupVocabularyEventListeners() {
     
     // Modal event listeners
     setupVocabularyModalListeners();
+    
+    // Setup sharing modal
+    if (typeof setupSharingModal === 'function') {
+        setupSharingModal();
+    }
     
     // Edit and delete buttons (delegated)
     const vocabularyList = document.getElementById('vocabulary-list');

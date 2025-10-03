@@ -73,8 +73,9 @@ async function syncVocabularyToFirebase() {
         const localWords = window.getVocabularyWords();
         const batch = writeBatch(db);
         
-        // Get user's vocabulary collection reference
-        const userVocabCollection = collection(db, 'users', currentUser.uid, 'vocabulary');
+        // Get user's vocabulary collection reference (use shared ID if available)
+        const effectiveUserId = typeof getEffectiveUserId === 'function' ? getEffectiveUserId() : currentUser.uid;
+        const userVocabCollection = collection(db, 'users', effectiveUserId, 'vocabulary');
 
         for (const word of localWords) {
             const docRef = doc(userVocabCollection, word.id);
@@ -105,7 +106,8 @@ async function syncVocabularyFromFirebase() {
     try {
         updateSyncStatus('syncing');
 
-        const userVocabCollection = collection(db, 'users', currentUser.uid, 'vocabulary');
+        const effectiveUserId = typeof getEffectiveUserId === 'function' ? getEffectiveUserId() : currentUser.uid;
+        const userVocabCollection = collection(db, 'users', effectiveUserId, 'vocabulary');
         const snapshot = await getDocs(userVocabCollection);
         
         if (snapshot.empty) {
