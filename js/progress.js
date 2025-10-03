@@ -1,17 +1,6 @@
 // Progress tracking and statistics
 
-// Update main menu stats
-function updateMainMenuStats() {
-    const systems = ['hiragana', 'katakana', 'kanji'];
-    
-    systems.forEach(system => {
-        const selectedCount = getSelectedCharacters(system).length;
-        const successRate = getSystemSuccessRate(system);
-        
-        document.getElementById(`${system}-selected`).textContent = selectedCount;
-        document.getElementById(`${system}-success`).textContent = `${successRate}%`;
-    });
-}
+// updateMainMenuStats moved to storage.js to include vocabulary support
 
 // Check if character needs practice (success rate < 70%)
 function needsPractice(characterId) {

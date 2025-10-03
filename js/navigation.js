@@ -35,6 +35,11 @@ function initApp() {
     initDarkMode();
     setupModal();
     
+    // Update stats again after a delay to ensure vocabulary system is loaded
+    setTimeout(() => {
+        updateMainMenuStats();
+    }, 1000);
+    
     // Initialize Firebase sync
     if (typeof initFirebaseSync === 'function') {
         initFirebaseSync();
@@ -188,16 +193,8 @@ function setupEventListeners() {
         startReview();
     });
     
-    // Start practice button
+    // Start practice button - allow access to mode selection (character validation moved to individual modes)
     document.getElementById('start-practice').addEventListener('click', () => {
-        const allSelected = getAllSelectedCharacters();
-        const totalSelected = allSelected.hiragana.length + allSelected.katakana.length + allSelected.kanji.length;
-        
-        if (totalSelected === 0) {
-            showAlert('No Characters Selected', 'Please select at least one character to practice!');
-            return;
-        }
-        
         showScreen('modeSelection');
     });
     

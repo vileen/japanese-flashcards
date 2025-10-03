@@ -1,5 +1,19 @@
 # Changelog
 
+## Version 2.0.1 - Bug Fixes & Polish 🐛
+
+### 🔧 Bug Fixes
+- **Fixed vocabulary stats tracking** - Main menu now correctly shows vocabulary word count and success rate
+- **Fixed vocabulary practice completion** - No more JavaScript errors on last vocabulary card
+- **Fixed category display positioning** - Category badge now properly appears above vocabulary flashcards
+- **Fixed modal button layout** - Confirmation dialogs now display correctly on all screen sizes
+
+### 🎨 UI Improvements
+- **Enhanced vocabulary card labeling** - Uses 📚 icon for total words vs ☑ for selected characters
+- **Better flashcard centering** - Vocabulary practice cards now properly centered on screen
+- **Improved category badges** - Professional pill-shaped badges with better positioning
+- **Cleaner modals** - Better text wrapping and button sizing in confirmation dialogs
+
 ## Version 2.0.0 - Vocabulary System with Cloud Sync 🔥
 
 ### 🎉 Major Features Added

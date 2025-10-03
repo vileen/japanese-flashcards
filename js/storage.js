@@ -204,13 +204,31 @@ function updateMainMenuStats() {
     });
 
     // Update vocabulary stats
-    const selectedVocab = getSelectedVocabulary();
+    let totalVocab = 0;
+    try {
+        if (typeof getVocabularyWords === 'function') {
+            totalVocab = getVocabularyWords().length;
+        } else if (window.VocabularyManager && window.VocabularyManager.getAllWords) {
+            totalVocab = window.VocabularyManager.getAllWords().length;
+        } else {
+            const stored = getStoredVocabulary();
+            totalVocab = stored.length;
+        }
+    } catch (error) {
+        try {
+            const stored = getStoredVocabulary();
+            totalVocab = stored.length;
+        } catch (e) {
+            totalVocab = 0;
+        }
+    }
+    
     const vocabSuccessRate = getSystemSuccessRate('vocabulary');
     
     const vocabSelectedEl = document.getElementById('vocabulary-selected');
     const vocabSuccessEl = document.getElementById('vocabulary-success');
     
-    if (vocabSelectedEl) vocabSelectedEl.textContent = selectedVocab.length;
+    if (vocabSelectedEl) vocabSelectedEl.textContent = totalVocab;
     if (vocabSuccessEl) vocabSuccessEl.textContent = vocabSuccessRate + '%';
 }
 
@@ -223,6 +241,11 @@ function clearAllData() {
     localStorage.removeItem(STORAGE_KEYS.VOCABULARY_SELECTED);
     initStorage();
 }
+
+// Make functions globally available
+window.updateMainMenuStats = updateMainMenuStats;
+window.needsPractice = needsPractice;
+window.getAllSelectedCharacters = getAllSelectedCharacters;
 
 // Initialize on load
 initStorage();

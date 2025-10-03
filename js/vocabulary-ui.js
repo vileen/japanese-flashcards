@@ -341,7 +341,8 @@ function startVocabularyPractice() {
         return;
     }
     
-    showScreen('modeSelection');
+    // Go directly to vocabulary practice (no mode selection needed)
+    startVocabularyFlashcardPractice();
 }
 
 // Romaji Conversion Functions

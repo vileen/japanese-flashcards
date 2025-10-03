@@ -1183,6 +1183,45 @@ body.dark-mode .quality-btn {
     opacity: 0.8;
 }
 
+/* Vocabulary category display inside flashcard */
+.vocabulary-category-display {
+    text-align: center;
+    margin-bottom: 16px;
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.vocabulary-category-display span {
+    background: var(--primary-color);
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+/* Fix flashcard container centering */
+#practice-vocabulary .flashcard-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 160px);
+    padding: 20px;
+}
+
+#practice-vocabulary .flashcard {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    margin-top: 20px; /* Add space for the category badge */
+}
+
 /* Form labels - simplified */
 .form-group label {
     display: block;

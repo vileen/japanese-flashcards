@@ -76,7 +76,7 @@ class VocabularyPracticeSession {
     }
     
     isComplete() {
-        return this.currentIndex >= this.words.length;
+        return this.currentIndex >= this.words.length - 1;
     }
     
     getProgress() {
@@ -100,6 +100,12 @@ function displayVocabularyFlashcard() {
     document.getElementById('vocabulary-practice-current').textContent = progress.current;
     document.getElementById('vocabulary-practice-total').textContent = progress.total;
     document.getElementById('vocabulary-practice-score').textContent = currentPractice.getSuccessRate() + '%';
+    
+    // Update category display
+    const categoryEl = document.getElementById('vocabulary-category');
+    if (categoryEl && card.word) {
+        categoryEl.textContent = card.word.category.charAt(0).toUpperCase() + card.word.category.slice(1);
+    }
     
     // Update card content
     const frontLabel = document.getElementById('vocabulary-flashcard-front-label');
@@ -142,6 +148,11 @@ function revealVocabularyFlashcard(e) {
 }
 
 function assessVocabularyFlashcard(isCorrect) {
+    if (!currentPractice) {
+        console.error('No current practice session');
+        return;
+    }
+    
     currentPractice.recordAnswer(isCorrect);
     
     if (currentPractice.isComplete()) {
@@ -161,5 +172,8 @@ function showVocabularyResults() {
     document.getElementById('total-count').textContent = stats.total;
     
     showScreen('results');
-    updateMainMenuStats();
+    // Update main menu stats after a brief delay to ensure all data is saved
+    setTimeout(() => {
+        updateMainMenuStats();
+    }, 100);
 }
