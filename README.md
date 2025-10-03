@@ -131,6 +131,7 @@ php -S localhost:8000
 - **Firebase Integration** - Real-time cloud sync with Firestore and anonymous authentication
 - **Offline-First Architecture** - Full functionality without internet, syncs when online
 - **Wanakana Integration** - Professional romaji ⇄ hiragana/katakana conversion
+- **Component-Based CSS** - Shared header components for consistent UI across all screens
 - **Mobile-Optimized** - Touch gestures, drag-to-select, responsive design
 - **Dark Mode** - Theme toggle with system preference detection
 - **Custom Modals** - Native-like alerts and confirmations for better UX

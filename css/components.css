@@ -1058,12 +1058,13 @@ body.dark-mode .quality-btn {
     background: var(--primary-color);
     color: white;
     border: none;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.7rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
 .add-btn:hover {
@@ -1071,25 +1072,23 @@ body.dark-mode .quality-btn {
     transform: translateY(-1px);
 }
 
-/* Vocabulary management header */
+/* Vocabulary management header - use flexbox layout */
 #vocabulary-management .header {
+    flex-direction: column;
+    gap: 12px;
+}
+
+#vocabulary-management .header > div:first-child {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    text-align: left;
+    gap: 16px;
 }
 
-#vocabulary-management .header h2 {
-    margin: 0;
-    flex: 1;
-    text-align: center;
-}
-
-/* Header actions and sync status */
-.header-actions {
+#vocabulary-management .header-actions {
     display: flex;
     align-items: center;
     gap: 12px;
+    justify-content: center;
 }
 
 .sync-status {
@@ -1347,13 +1346,14 @@ body.dark-mode .quality-btn {
     background: var(--secondary-color);
     color: white;
     border: none;
-    padding: 8px 12px;
-    border-radius: 8px;
-    font-size: 0.8rem;
+    padding: 5px 8px;
+    border-radius: 5px;
+    font-size: 0.7rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .share-btn:hover {

@@ -72,11 +72,31 @@ body {
     }
 }
 
-/* Header */
+/* Shared Header Component */
 .header {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    gap: 16px;
     margin-bottom: 24px;
     position: relative;
+}
+
+.header h2 {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+}
+
+/* Main menu header - special layout */
+#main-menu .header {
+    flex-direction: column;
+    text-align: center;
+    gap: 0;
+}
+
+#main-menu .header h1,
+#main-menu .header .subtitle {
+    margin: 0;
 }
 
 .header h1 {
@@ -147,16 +167,13 @@ button {
 }
 
 .back-btn {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
     background: var(--bg-white);
     border: 2px solid var(--border-color);
     width: 44px;
     height: 44px;
     border-radius: 50%;
     font-size: 1.5rem;
+    flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -166,7 +183,7 @@ button {
 
 .back-btn:active {
     background: var(--bg-light);
-    transform: translateY(-50%) scale(0.95);
+    transform: scale(0.95);
 }
 
 /* Menu Cards */

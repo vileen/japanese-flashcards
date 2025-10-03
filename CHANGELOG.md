@@ -1,5 +1,25 @@
 # Changelog
 
+## Version 2.1.1 - UI Polish & Shared Components 🎨
+
+### 🎨 UI Improvements
+- **Shared Header Component** - Consistent header layout across all screens
+- **Removed Absolute Positioning** - Simplified back button layout using natural flexbox flow
+- **Fixed Title Overlaps** - No more back button overlapping with screen titles
+- **Responsive Headers** - All headers now work perfectly on mobile and desktop
+- **Two-Row Vocabulary Header** - Clean separation of title and action buttons
+
+### 🔧 Technical Improvements
+- **Component-Based CSS** - Shared header styles prevent layout inconsistencies
+- **Flexbox Layout** - Modern CSS layout replacing complex absolute positioning
+- **Maintainable Code** - Fix header issues once, applies everywhere
+- **Cross-Screen Consistency** - All screens now have identical header behavior
+
+### 🐛 Bug Fixes
+- **Header Overlap Issues** - Fixed back button covering titles on all screens
+- **Button Layout** - Share and Add buttons now properly positioned and sized
+- **Responsive Spacing** - Headers adapt properly to different screen sizes
+
 ## Version 2.1.0 - Cross-Device Vocabulary Sharing 🔗
 
 ### 🎉 Major Features Added
