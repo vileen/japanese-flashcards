@@ -111,8 +111,9 @@ php -S localhost:8000
 
 ### 5. Vocabulary Practice
 - **Dedicated Practice Mode** - Separate from character practice
-- **English ⇄ Japanese** - Bidirectional flashcard testing
-- **Multiple Scripts** - Shows hiragana, katakana, kanji, and romaji
+- **English ⇄ Romaji** - Bidirectional flashcard testing with pronunciation focus
+- **Complete Script Display** - Shows all Japanese writing systems (hiragana • katakana • kanji)
+- **Clean Design** - No redundant labels, content is self-explanatory
 - **Progress Tracking** - Integrated with SRS system
 - **Practice All Words** - No selection needed
 

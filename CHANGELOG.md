@@ -1,5 +1,20 @@
 # Changelog
 
+## Version 2.2.1 - Cleaner Flashcard Design 🎴
+
+### 🎨 Flashcard Improvements
+- **Removed Redundant Labels** - No more "English" and "Romaji" labels on vocabulary flashcards
+- **Cleaner Design** - Content speaks for itself, more focus on actual words
+- **Romaji Emphasis** - Romaji now always the main translation for better pronunciation learning
+- **Complete Script Display** - All Japanese writing systems (hiragana • katakana • kanji) shown together
+- **Better Visual Hierarchy** - Main translation large, additional scripts smaller below
+
+### 🎯 Enhanced Learning Experience
+- **Self-Explanatory Cards** - Obviously English vs romaji without labels
+- **Pronunciation Focus** - Romaji as primary translation helps with speaking
+- **Complete Context** - See all forms of each word in one place
+- **Minimal Design** - Less clutter, more focus on learning content
+
 ## Version 2.2.0 - Polish & Perfect Alignment 🎨
 
 ### 🎨 UI Perfection

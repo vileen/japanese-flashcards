@@ -37,6 +37,14 @@ class VocabularyPracticeSession {
         return this.words[this.currentIndex];
     }
     
+    getAllJapaneseScripts(word) {
+        const scripts = [];
+        if (word.hiragana) scripts.push(word.hiragana);
+        if (word.katakana) scripts.push(word.katakana);
+        if (word.kanji) scripts.push(word.kanji);
+        return scripts.join(' • ');
+    }
+    
     getCurrentCard() {
         const word = this.getCurrentWord();
         
@@ -46,9 +54,9 @@ class VocabularyPracticeSession {
         }
         
         return {
-            front: this.showEnglish ? word.english : word.getPrimaryJapanese(),
-            back: this.showEnglish ? word.getPrimaryJapanese() : word.english,
-            additional: this.showEnglish ? word.romaji : word.getAdditionalInfo(false),
+            front: this.showEnglish ? word.english : word.romaji,
+            back: this.showEnglish ? word.romaji : word.english,
+            additional: this.showEnglish ? this.getAllJapaneseScripts(word) : this.getAllJapaneseScripts(word),
             isEnglishFront: this.showEnglish,
             word: word
         };
@@ -107,13 +115,7 @@ function displayVocabularyFlashcard() {
         categoryEl.textContent = card.word.category.charAt(0).toUpperCase() + card.word.category.slice(1);
     }
     
-    // Update card content
-    const frontLabel = document.getElementById('vocabulary-flashcard-front-label');
-    const backLabel = document.getElementById('vocabulary-flashcard-back-label');
-    
-    frontLabel.textContent = card.isEnglishFront ? 'English' : 'Japanese';
-    backLabel.textContent = card.isEnglishFront ? 'Japanese' : 'English';
-    
+    // Update card content (no labels needed - content is self-explanatory)
     document.getElementById('vocabulary-flashcard-front').textContent = card.front;
     document.getElementById('vocabulary-flashcard-back').textContent = card.back;
     document.getElementById('vocabulary-flashcard-additional').textContent = card.additional;
