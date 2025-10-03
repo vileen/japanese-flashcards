@@ -63,14 +63,37 @@ function setSharedUserId(newUserId) {
             
             setTimeout(() => {
                 console.log('Triggering sync from Firebase for new user ID');
-                window.syncVocabularyFromFirebase().then(() => {
+                
+                // Add timeout to prevent getting stuck
+                const syncTimeout = setTimeout(() => {
+                    if (typeof showAlert === 'function') {
+                        showAlert('Sync Timeout', 'Sync is taking longer than expected. Please check your connection and Firebase rules.');
+                    }
+                }, 10000); // 10 second timeout
+                
+                window.syncVocabularyFromFirebase().then((success) => {
+                    clearTimeout(syncTimeout);
+                    
                     // Refresh the vocabulary display after sync
                     if (typeof displayVocabularyList === 'function') {
                         displayVocabularyList();
                         updateVocabularyStats();
                     }
+                    
+                    if (success) {
+                        if (typeof showAlert === 'function') {
+                            showAlert('Sync Complete!', 'Vocabulary has been synced from the shared device.');
+                        }
+                    } else {
+                        if (typeof showAlert === 'function') {
+                            showAlert('Sync Failed', 'Could not sync vocabulary. Please check your connection and try again.');
+                        }
+                    }
+                }).catch((error) => {
+                    clearTimeout(syncTimeout);
+                    console.error('Sync error:', error);
                     if (typeof showAlert === 'function') {
-                        showAlert('Sync Complete!', 'Vocabulary has been synced from the shared device.');
+                        showAlert('Sync Error', 'An error occurred during sync. Please check Firebase security rules.');
                     }
                 });
             }, 1000);
@@ -79,6 +102,7 @@ function setSharedUserId(newUserId) {
     
     return newUserId.toUpperCase();
 }
+
 
 // Get the current shared user ID for display
 function getCurrentSharedUserId() {
