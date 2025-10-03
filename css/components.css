@@ -954,11 +954,21 @@ body.dark-mode .quality-btn {
     gap: 16px;
 }
 
+/* Vocabulary bottom bar layout */
+#vocabulary-management .bottom-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .vocabulary-stats {
     display: flex;
+    justify-content: flex-end;
     gap: 16px;
     font-size: 0.9rem;
     color: var(--text-secondary);
+    flex: 1;
+    margin-right: 16px;
 }
 
 .empty-state {
@@ -1058,13 +1068,17 @@ body.dark-mode .quality-btn {
     background: var(--primary-color);
     color: white;
     border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    font-size: 0.7rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     white-space: nowrap;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .add-btn:hover {
@@ -1353,19 +1367,86 @@ body.dark-mode .quality-btn {
     background: var(--secondary-color);
     color: white;
     border: none;
-    padding: 5px 8px;
-    border-radius: 5px;
-    font-size: 0.7rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
     text-decoration: none;
     white-space: nowrap;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .share-btn:hover {
     background: var(--secondary-color-dark);
     transform: translateY(-1px);
+}
+
+/* Pull-to-Refresh Styles */
+.pull-indicator {
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 100;
+    pointer-events: none;
+}
+
+.pull-icon {
+    font-size: 1.5rem;
+    transition: transform 0.1s ease;
+}
+
+.pull-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.pull-indicator.ready .pull-text {
+    color: var(--primary-color);
+}
+
+.pull-indicator.syncing .pull-icon {
+    animation: spin 1s linear infinite;
+}
+
+.pull-indicator.success .pull-text {
+    color: var(--success-color);
+}
+
+.pull-indicator.error .pull-text {
+    color: var(--error-color);
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Ensure vocabulary list container supports pull-to-refresh */
+#vocabulary-management {
+    position: relative;
+    overflow: hidden;
+}
+
+#vocabulary-management .vocabulary-list {
+    transition: transform 0.1s ease-out;
+}
+
+#vocabulary-management .vocabulary-controls {
+    transition: transform 0.1s ease-out;
 }
 
 /* Form labels - simplified */

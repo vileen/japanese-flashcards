@@ -13,6 +13,11 @@ function loadVocabularyManagement() {
     displayVocabularyList();
     updateVocabularyStats();
     setupVocabularyEventListeners();
+    
+    // Setup pull-to-refresh for mobile
+    if (typeof setupPullToRefresh === 'function') {
+        setupPullToRefresh();
+    }
 }
 
 function displayVocabularyList() {
@@ -337,10 +342,25 @@ function deleteVocabularyWord(wordId) {
         showConfirm(
             'Delete Vocabulary Word',
             `Are you sure you want to delete "${word.english}"? This action cannot be undone.`,
-            () => {
+            async () => {
+                console.log('Delete callback triggered for word:', wordId);
+                
+                // Delete from local storage
                 window.VocabularyManager.deleteWord(wordId);
+                console.log('Deleted from local storage');
+                
+                // Delete from Firebase
+                if (typeof window.deleteVocabularyFromFirebase === 'function') {
+                    console.log('Deleting from Firebase...');
+                    const firebaseSuccess = await window.deleteVocabularyFromFirebase(wordId);
+                    console.log('Firebase delete result:', firebaseSuccess);
+                } else {
+                    console.log('deleteVocabularyFromFirebase function not available');
+                }
+                
                 displayVocabularyList();
                 updateVocabularyStats();
+                console.log('Delete operation completed');
             }
         );
     }

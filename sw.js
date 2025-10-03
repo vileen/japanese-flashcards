@@ -1,4 +1,4 @@
-const CACHE_NAME = 'japanese-flashcards-v2.1.2';
+const CACHE_NAME = 'japanese-flashcards-v2.2.0';
 const urlsToCache = [
   './',
   './index.html',
@@ -9,6 +9,7 @@ const urlsToCache = [
   './js/data.js',
   './js/vocabulary.js',
   './js/shared-user.js',
+  './js/pull-to-refresh.js',
   './js/vocabulary-ui.js',
   './js/vocabulary-practice.js',
   './js/firebase-modern.js',

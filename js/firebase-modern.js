@@ -199,7 +199,8 @@ async function deleteVocabularyFromFirebase(wordId) {
     }
 
     try {
-        const docRef = doc(db, 'users', currentUser.uid, 'vocabulary', wordId);
+        const effectiveUserId = typeof getEffectiveUserId === 'function' ? getEffectiveUserId() : currentUser.uid;
+        const docRef = doc(db, 'users', effectiveUserId, 'vocabulary', wordId);
         await deleteDoc(docRef);
         return true;
     } catch (error) {

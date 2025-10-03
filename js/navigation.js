@@ -113,19 +113,28 @@ function setupModal() {
 let confirmCallback = null;
 
 function showConfirm(title, message, onConfirm) {
+    console.log('showConfirm called with:', title);
     const modal = document.getElementById('confirm-modal');
     document.getElementById('confirm-title').textContent = title;
     document.getElementById('confirm-message').textContent = message;
     
     confirmCallback = onConfirm;
+    console.log('Confirm callback set:', typeof confirmCallback);
     
-    // Set up confirm button
+    // Set up confirm button (remove any existing listeners first)
     const confirmBtn = document.getElementById('confirm-ok');
+    confirmBtn.onclick = null; // Clear any existing onclick
     confirmBtn.onclick = () => {
-        hideConfirm();
+        console.log('Confirm button clicked');
         if (confirmCallback) {
-            confirmCallback();
+            console.log('Executing callback...');
+            const callback = confirmCallback;
             confirmCallback = null;
+            hideConfirm();
+            callback();
+        } else {
+            console.log('No callback to execute');
+            hideConfirm();
         }
     };
     
@@ -134,7 +143,7 @@ function showConfirm(title, message, onConfirm) {
 
 function hideConfirm() {
     document.getElementById('confirm-modal').style.display = 'none';
-    confirmCallback = null;
+    // Don't clear confirmCallback here - let the button click handler manage it
 }
 
 // Make confirm function globally available
