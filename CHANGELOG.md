@@ -1,37 +1,23 @@
 # Changelog
 
-## Version 2.2.0 - Native iOS Experience & Final Polish 📱
-
-### 🎉 Major Features Added
-- **📱 iOS Pull-to-Refresh** - Native-style pull gesture to sync vocabulary on mobile devices
-- **🔄 Visual Sync Feedback** - Animated pull indicator with progress states
-- **📊 Perfect Button Alignment** - Consistent Share/Add button heights and spacing
-- **🎯 Right-Aligned Stats** - Professional word count positioning
-
-### 📱 iOS Native Features
-- **Touch Gesture Detection** - Only activates on touch devices (mobile/tablet)
-- **Resistance Effect** - Content moves naturally with finger like native iOS apps
-- **Visual Feedback States** - "Pull to sync" → "Release to sync" → "Syncing..." → "Synced!"
-- **Smooth Animations** - Content bounces back naturally after release
-- **80px Threshold** - Standard iOS pull distance to trigger refresh
+## Version 2.2.0 - Polish & Perfect Alignment 🎨
 
 ### 🎨 UI Perfection
-- **Pixel-Perfect Buttons** - Share and Add buttons now identical heights (32px)
-- **Professional Layout** - Word count right-aligned above Practice button
-- **Consistent Spacing** - 8px 12px padding, 6px border-radius, 0.8rem font
-- **Mobile-Optimized** - All elements perfectly sized for touch interaction
-
-### 🔧 Technical Improvements
-- **Touch Event Handling** - Proper passive/active event listeners for performance
-- **State Management** - Clean pull gesture state tracking
-- **Cross-Device Sync** - Pull-to-refresh works with shared vocabulary collections
-- **Error Handling** - Graceful fallbacks if sync fails during pull gesture
+- **📊 Perfect Button Alignment** - Share and Add buttons now identical heights (32px)
+- **🎯 Right-Aligned Stats** - Professional word count positioning in bottom bar
+- **📱 Consistent Spacing** - 8px 12px padding, 6px border-radius, 0.8rem font
+- **🔧 Mobile-Optimized** - All elements perfectly sized for touch interaction
 
 ### 🐛 Bug Fixes
 - **Fixed Delete Functionality** - Vocabulary deletion now works properly with Firebase sync
-- **Fixed Confirm Modal** - Callback execution order corrected
-- **Fixed Button Heights** - Share and Add buttons perfectly aligned
-- **Fixed Stats Layout** - Word count properly positioned in bottom bar
+- **Fixed Confirm Modal** - Callback execution order corrected for proper delete confirmation
+- **Fixed Button Heights** - Share and Add buttons perfectly aligned with flexbox centering
+- **Fixed Stats Layout** - Word count properly positioned and right-aligned in bottom bar
+
+### 🎨 Visual Improvements
+- **Professional Layout** - Bottom bar now uses proper flexbox layout with space-between
+- **Consistent Button Design** - All action buttons share identical dimensions and styling
+- **Enhanced Typography** - Uniform font sizes and weights across all UI elements
 
 ## Version 2.1.1 - UI Polish & Shared Components 🎨
 

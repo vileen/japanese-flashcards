@@ -1386,68 +1386,6 @@ body.dark-mode .quality-btn {
     transform: translateY(-1px);
 }
 
-/* Pull-to-Refresh Styles */
-.pull-indicator {
-    position: absolute;
-    top: -80px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 100;
-    pointer-events: none;
-}
-
-.pull-icon {
-    font-size: 1.5rem;
-    transition: transform 0.1s ease;
-}
-
-.pull-text {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.pull-indicator.ready .pull-text {
-    color: var(--primary-color);
-}
-
-.pull-indicator.syncing .pull-icon {
-    animation: spin 1s linear infinite;
-}
-
-.pull-indicator.success .pull-text {
-    color: var(--success-color);
-}
-
-.pull-indicator.error .pull-text {
-    color: var(--error-color);
-}
-
-@keyframes spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
-/* Ensure vocabulary list container supports pull-to-refresh */
-#vocabulary-management {
-    position: relative;
-    overflow: hidden;
-}
-
-#vocabulary-management .vocabulary-list {
-    transition: transform 0.1s ease-out;
-}
-
-#vocabulary-management .vocabulary-controls {
-    transition: transform 0.1s ease-out;
-}
 
 /* Form labels - simplified */
 .form-group label {

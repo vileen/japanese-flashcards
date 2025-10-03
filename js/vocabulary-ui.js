@@ -13,11 +13,6 @@ function loadVocabularyManagement() {
     displayVocabularyList();
     updateVocabularyStats();
     setupVocabularyEventListeners();
-    
-    // Setup pull-to-refresh for mobile
-    if (typeof setupPullToRefresh === 'function') {
-        setupPullToRefresh();
-    }
 }
 
 function displayVocabularyList() {

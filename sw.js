@@ -9,7 +9,6 @@ const urlsToCache = [
   './js/data.js',
   './js/vocabulary.js',
   './js/shared-user.js',
-  './js/pull-to-refresh.js',
   './js/vocabulary-ui.js',
   './js/vocabulary-practice.js',
   './js/firebase-modern.js',
