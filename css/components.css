@@ -1072,16 +1072,23 @@ body.dark-mode .quality-btn {
     transform: translateY(-1px);
 }
 
-/* Vocabulary management header - use flexbox layout */
+/* Vocabulary management header - three-row layout */
 #vocabulary-management .header {
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
+    align-items: center;
 }
 
 #vocabulary-management .header > div:first-child {
     display: flex;
     align-items: center;
     gap: 16px;
+    width: 100%;
+}
+
+#vocabulary-management .sync-status {
+    align-self: center;
+    margin: 4px 0;
 }
 
 #vocabulary-management .header-actions {

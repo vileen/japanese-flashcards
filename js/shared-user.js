@@ -32,21 +32,48 @@ function setSharedUserId(newUserId) {
     }
     
     const oldUserId = localStorage.getItem('sharedUserId');
+    const originalId = localStorage.getItem('originalUserId');
+    
+    // Store original ID if this is the first time joining
+    if (!originalId && oldUserId) {
+        localStorage.setItem('originalUserId', oldUserId);
+    }
+    
     localStorage.setItem('sharedUserId', newUserId.toUpperCase());
     
     // If changing user ID, trigger a sync to get the new user's data
     if (oldUserId !== newUserId.toUpperCase()) {
+        console.log('Switching to shared user ID:', newUserId.toUpperCase());
+        
         // Clear current vocabulary to avoid mixing data
         if (window.VocabularyManager) {
             window.VocabularyManager.vocabulary.clear();
             window.VocabularyManager.saveVocabulary(true); // Skip Firebase sync
         }
         
+        // Clear localStorage vocabulary
+        localStorage.setItem('vocabulary_words', JSON.stringify([]));
+        
         // Trigger sync from new user's Firebase data
         if (typeof window.syncVocabularyFromFirebase === 'function') {
+            // Show user-friendly message
+            if (typeof showAlert === 'function') {
+                showAlert('Syncing...', 'Downloading vocabulary from shared device. This may take a few seconds.');
+            }
+            
             setTimeout(() => {
-                window.syncVocabularyFromFirebase();
-            }, 500);
+                console.log('Triggering sync from Firebase for new user ID');
+                window.syncVocabularyFromFirebase().then(() => {
+                    // Refresh the vocabulary display after sync
+                    if (typeof displayVocabularyList === 'function') {
+                        displayVocabularyList();
+                        updateVocabularyStats();
+                    }
+                    if (typeof showAlert === 'function') {
+                        showAlert('Sync Complete!', 'Vocabulary has been synced from the shared device.');
+                    }
+                });
+            }, 1000);
         }
     }
     
@@ -65,6 +92,18 @@ function showSharingModal() {
     
     document.getElementById('current-user-id').textContent = currentId;
     document.getElementById('join-user-id').value = '';
+    
+    // Show current joined ID if different from generated ID
+    const joinedIdDisplay = document.getElementById('joined-id-display');
+    if (joinedIdDisplay) {
+        const originalId = localStorage.getItem('originalUserId');
+        if (originalId && originalId !== currentId) {
+            joinedIdDisplay.style.display = 'block';
+            document.getElementById('joined-id').textContent = currentId;
+        } else {
+            joinedIdDisplay.style.display = 'none';
+        }
+    }
     
     modal.style.display = 'flex';
 }
@@ -207,15 +246,21 @@ function setupSharingModal() {
 // Override Firebase user ID for shared vocabulary
 function getEffectiveUserId() {
     const sharedId = getCurrentSharedUserId();
+    console.log('getEffectiveUserId - sharedId:', sharedId);
+    
     if (sharedId) {
-        return `shared_${sharedId}`;
+        const effectiveId = `shared_${sharedId}`;
+        console.log('Using shared user ID:', effectiveId);
+        return effectiveId;
     }
     
     // Fallback to Firebase user ID
     if (window.currentUser) {
+        console.log('Using Firebase user ID:', window.currentUser.uid);
         return window.currentUser.uid;
     }
     
+    console.log('No user ID available');
     return null;
 }
 

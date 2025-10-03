@@ -156,8 +156,9 @@
             <div>
                 <button class="back-btn" id="back-from-vocabulary">←</button>
                 <h2>Vocabulary Management</h2>
-                <div class="sync-status" id="sync-status">📱 Offline</div>
             </div>
+            
+            <div class="sync-status" id="sync-status">📱 Offline</div>
             
             <div class="header-actions">
                 <button class="share-btn" id="share-vocabulary-btn">🔗 Share</button>
@@ -491,6 +492,10 @@
                         <button class="copy-btn" id="copy-user-id">Copy</button>
                     </div>
                     <p class="help-text">Share this ID with your other devices to sync vocabulary</p>
+                    
+                    <div id="joined-id-display" style="display: none;">
+                        <p class="help-text">Currently using shared ID: <strong id="joined-id"></strong></p>
+                    </div>
                 </div>
                 
                 <div class="join-section">

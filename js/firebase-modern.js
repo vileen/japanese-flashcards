@@ -75,6 +75,7 @@ async function syncVocabularyToFirebase() {
         
         // Get user's vocabulary collection reference (use shared ID if available)
         const effectiveUserId = typeof getEffectiveUserId === 'function' ? getEffectiveUserId() : currentUser.uid;
+        console.log('Syncing TO Firebase with user ID:', effectiveUserId);
         const userVocabCollection = collection(db, 'users', effectiveUserId, 'vocabulary');
 
         for (const word of localWords) {
@@ -107,6 +108,7 @@ async function syncVocabularyFromFirebase() {
         updateSyncStatus('syncing');
 
         const effectiveUserId = typeof getEffectiveUserId === 'function' ? getEffectiveUserId() : currentUser.uid;
+        console.log('Syncing FROM Firebase with user ID:', effectiveUserId);
         const userVocabCollection = collection(db, 'users', effectiveUserId, 'vocabulary');
         const snapshot = await getDocs(userVocabCollection);
         
@@ -217,7 +219,18 @@ function updateSyncStatus(status) {
         'error': '❌ Sync Error'
     };
     
-    statusEl.textContent = statusMessages[status] || status;
+    let statusText = statusMessages[status] || status;
+    
+    // Add user ID info for debugging
+    if (status === 'synced' && typeof getEffectiveUserId === 'function') {
+        const userId = getEffectiveUserId();
+        if (userId && userId.startsWith('shared_')) {
+            const shortId = userId.replace('shared_', '');
+            statusText = `✅ Shared: ${shortId}`;
+        }
+    }
+    
+    statusEl.textContent = statusText;
     statusEl.className = `sync-status ${status}`;
 }
 
